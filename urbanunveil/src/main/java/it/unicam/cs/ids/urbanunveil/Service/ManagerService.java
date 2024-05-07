@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import it.unicam.cs.ids.urbanunveil.Entity.RoleName;
+import it.unicam.cs.ids.urbanunveil.Entity.User;
+import it.unicam.cs.ids.urbanunveil.Repository.RoleRepository;
+import it.unicam.cs.ids.urbanunveil.Repository.UserRepository;
 
 import java.util.LinkedList;
 
@@ -15,6 +19,8 @@ public class ManagerService{
 	
 	
 	public ManagerService(int id, RoleName role, String description) {
+		this.userRepository = null;
+		this.roleRepository = null;
 		
 	}
 
@@ -24,16 +30,11 @@ public class ManagerService{
 	}
 	
 	private User getUser(Long id) {
-		for (UserNode node : userList) {
-			if(node.getUser().getId() == id) {
-				return node.getUser();
-			}
-		}
 		return null;
 	}
 	
 	public List<UserNode> getList(){
-		return this.userList;
+		return null;
 	}
 	private class UserNode{
 		private User user;
