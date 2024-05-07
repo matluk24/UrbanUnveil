@@ -1,33 +1,24 @@
-package it.unicam.cs.ids.urbanunveil.Models;
+package it.unicam.cs.ids.urbanunveil.Service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+
 import java.util.LinkedList;
 
-
-public class Manager extends Role {
+@Service
+public class ManagerService{
 	
-	private List<UserNode>userList;
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
 	
 	
-	public Manager(int id, RoleName role, String description) {
-		super(id,role,description); 
-		this.getDBList();
-	}
-	
-	private void getDBList() {
-		//TODO select user list from DB
-				List<User> users = null;// data from db stored
-				for(User user: users) {
-					List<RoleName> roleNames = this.getRoleNames(user.getId());
-					this.userList.add(new UserNode(user,null));
-				}
+	public ManagerService(int id, RoleName role, String description) {
+		
 	}
 
-	private LinkedList<RoleName> getRoleNames(Long id){
-		//TODO select role name list from DB by Id
-				LinkedList<RoleName> roleNames = new LinkedList<RoleName>();
-				return roleNames;
-	}
+	
 	private void upload() {
 		//TODO upload information suddenly changed
 	}
