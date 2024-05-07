@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.urbanunveil.Entity;
+package it.unicam.cs.ids.urbanunveil.Utilities;
 
 public enum RoleName {
 	MANAGER,
