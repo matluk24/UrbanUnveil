@@ -20,8 +20,8 @@ public class ManagerServiceImpl{
 	
 	public void uploadUser(User u) {
 		//TODO upload information suddenly changed
-		//User temp = this.getUser(u.getId());
-		//userRepository.save(temp);
+		User temp = this.getUser(u.getId());
+		userRepository.save(temp);
 	}
 	
 	public void addRole(Role r) {
