@@ -1,6 +1,13 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
+import jakarta.persistence.*;
+
+@Entity
 public class Role {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private RoleName roleName;
 	private String description;
