@@ -1,17 +1,15 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 
 @Entity
 public class Content {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long Id;
+	@ManyToOne
 	private User publisher;
 	private StateEnum state;
 	private String descr;
@@ -49,7 +47,7 @@ public class Content {
 	*/
 	@Override
 	public String toString() {
-		return "Content [Id=" + Id + ", publisher=" + publisher + ", state=" + state + ", descr=" + descr + "]";
+		return "Content [Id=" + Id + ", state=" + state + ", descr=" + descr + "]";
 	}
 
 	
