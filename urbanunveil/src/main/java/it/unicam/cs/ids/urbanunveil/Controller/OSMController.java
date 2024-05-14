@@ -1,22 +1,37 @@
 package it.unicam.cs.ids.urbanunveil.Controller;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import it.unicam.cs.ids.urbanunveil.Entity.OSMNode;
+import it.unicam.cs.ids.urbanunveil.Service.OSMService;
 
 @RestController
 public class OSMController {
-
+	
+	private final OSMService OSMService;
+	
+	public OSMController(OSMService OSMService) {
+		this.OSMService = OSMService;
+	}
 	
 	@GetMapping("/map/search")
-	public ResponseEntity<String> search(@RequestParam String query) {
-		RestTemplate r = new RestTemplate();
-		String url =String.format("%s?q=%s&format=json", "https://nominatim.openstreetmap.org/search", query);
-		String response = r.getForObject(url, String.class);
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	public ResponseEntity<OSMNode> search(@RequestParam String query) {
+		OSMNode node;
+		try {
+			node = OSMService.search(query);
+			return new ResponseEntity<OSMNode>(node, HttpStatus.OK);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	
 	}
 	
 }
