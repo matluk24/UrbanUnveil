@@ -10,7 +10,10 @@ public class OSMNode{
 	private double lon;
 	private Map<String, String> tags;
 	public OSMNode(Long id, double latitude, double longitude, Map<String,String> tags) {
-		
+		this.id = id;
+		this.lat =latitude;
+		this.lon = longitude;
+		this.tags = tags;
 	}
 	public Long getId() {
 		return id;
