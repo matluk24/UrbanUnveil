@@ -2,12 +2,19 @@ package it.unicam.cs.ids.urbanunveil.Entity;
 
 import java.util.Map;
 
-public class OSMNode {
+
+public class OSMNode{
 
 	private Long id;
 	private double lat;
 	private double lon;
 	private Map<String, String> tags;
+	public OSMNode(Long id, double latitude, double longitude, Map<String,String> tags) {
+		this.id = id;
+		this.lat =latitude;
+		this.lon = longitude;
+		this.tags = tags;
+	}
 	public Long getId() {
 		return id;
 	}
