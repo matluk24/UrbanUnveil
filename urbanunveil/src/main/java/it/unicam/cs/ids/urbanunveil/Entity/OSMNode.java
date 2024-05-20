@@ -8,12 +8,11 @@ public class OSMNode{
 	private Long id;
 	private double lat;
 	private double lon;
-	private Map<String, String> tags;
-	public OSMNode(Long id, double latitude, double longitude, Map<String,String> tags) {
+	private String name;
+	public OSMNode(Long id, double latitude, double longitude, String name) {
 		this.id = id;
 		this.lat =latitude;
 		this.lon = longitude;
-		this.tags = tags;
 	}
 	public Long getId() {
 		return id;
@@ -33,14 +32,14 @@ public class OSMNode{
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
-	public Map<String, String> getTags() {
-		return tags;
-	}
-	public void setTags(Map<String, String> tags) {
-		this.tags = tags;
-	}
 	@Override
 	public String toString() {
-		return "OSMNode [id=" + id + ", lat=" + lat + ", lon=" + lon + ", tags=" + tags + "]";
+		return "OSMNode [id=" + id + ", lat=" + lat + ", lon=" + lon + ", nome="+ name +"]";
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -1,6 +1,9 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
+
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 
 @Entity
@@ -13,7 +16,7 @@ public class Content {
 	private User publisher;
 	private StateEnum state;
 	private String descr;
-	//private List<Media> medias;  //Creazione classe Media
+	private List<Media> medias;  //Creazione classe Media
 	public Long getId() {
 		return Id;
 	}
