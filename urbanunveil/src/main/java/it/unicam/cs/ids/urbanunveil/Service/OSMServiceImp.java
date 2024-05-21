@@ -4,6 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -26,14 +28,13 @@ public class OSMServiceImp implements OSMService {
 		try{
 			ResponseEntity<String> responce =  r.getForEntity(url, String.class);;
 			String json = responce.getBody();
-			ObjectMapper mapper = new ObjectMapper();
-			return 	mapper.readValue(json, OSMNode.class);
+			System.out.println(json);
+			JSONArray obj = new JSONArray(json);
+			System.out.println(obj.getJSONObject(0).getString("lat"));
+
+			return null;
 			
 		}catch(RestClientException ex) {
-			ex.printStackTrace();
-		}catch(JsonMappingException ex) {
-			ex.printStackTrace();
-		}catch(JsonProcessingException ex) {
 			ex.printStackTrace();
 		}
 		return null;
