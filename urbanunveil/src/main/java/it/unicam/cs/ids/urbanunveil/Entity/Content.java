@@ -7,6 +7,7 @@ import java.util.List;
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Content {
 	
 	@Id
@@ -16,6 +17,7 @@ public class Content {
 	private User publisher;
 	private StateEnum state;
 	private String descr;
+	@OneToMany
 	private List<Media> medias;  //Creazione classe Media
 	public Long getId() {
 		return Id;
@@ -41,13 +43,13 @@ public class Content {
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
-	/*public List<Media> getSources() {
+	public List<Media> getSources() {
 		return medias;
 	}
 	public void setSources(List<Media> medias) {
 		this.medias = medias;
 	}
-	*/
+	
 	@Override
 	public String toString() {
 		return "Content [Id=" + Id + ", state=" + state + ", descr=" + descr + "]";

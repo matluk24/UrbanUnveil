@@ -1,18 +1,26 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
 
 import it.unicam.cs.ids.urbanunveil.Utilities.FeedbackEnum;
 
+@Entity
 public class Feedback {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@ManyToMany
+	@ManyToOne
 	private Content content;
-	@OneToMany
-	private User user;
+	@ManyToOne
+	private User publisher;
 	private LocalDate date;
 	private String desc;
 	public Content getContent() {
@@ -22,10 +30,10 @@ public class Feedback {
 		this.content = content;
 	}
 	public User getUser() {
-		return user;
+		return publisher;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(User publisher) {
+		this.publisher = publisher;
 	}
 	public LocalDate getDate() {
 		return date;
