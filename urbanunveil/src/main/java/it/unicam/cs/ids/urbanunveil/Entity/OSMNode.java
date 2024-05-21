@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
-import java.util.Map;
+import jakarta.persistence.Embeddable;
 
-
+@Embeddable
 public class OSMNode{
 
 	private Long id;

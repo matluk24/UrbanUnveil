@@ -2,6 +2,7 @@ package it.unicam.cs.ids.urbanunveil.Utilities;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import it.unicam.cs.ids.urbanunveil.Entity.OSMNode;
 
 public class JsonAdapterToOSMNode {
