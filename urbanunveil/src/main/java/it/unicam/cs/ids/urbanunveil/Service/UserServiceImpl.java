@@ -13,33 +13,26 @@ import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 import java.util.LinkedList;
 
 @Service
-public class ManagerServiceImpl{
+public class UserServiceImpl implements UserService{
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 	
-	public void uploadUser(User u) {
+	public void updateUser(String cf, String name, String surname, String role) {
 		//TODO upload information suddenly changed
-		User temp = this.getUser(u.getId());
-		userRepository.save(temp);
+		
+		//userRepository.;
 	}
 	
-	public void addRole(Role r) {
-		//TODO upload information suddenly changed
-		Role temp = this.getRole(r.getId());
-		roleRepository.save(temp);
+	public void addUser(User u) {
+		userRepository.save(u);
 	}
 	
-	
-	private User getUser(Long id) {
+	public User getUserById(Long id) {
 		return userRepository.getReferenceById(id);
 	}
 	
-	private Role getRole(Long id) {
-		return roleRepository.getReferenceById(id);
-	}
-	
-	public List<User> getList(){
+	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
 

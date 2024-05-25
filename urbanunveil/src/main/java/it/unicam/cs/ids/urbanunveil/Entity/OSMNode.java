@@ -13,6 +13,7 @@ public class OSMNode{
 		this.id = id;
 		this.lat =latitude;
 		this.lon = longitude;
+		this.name = name;
 	}
 	public Long getId() {
 		return id;

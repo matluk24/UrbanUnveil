@@ -12,7 +12,7 @@ public class JsonAdapterToOSMNode {
 		
 		JSONObject obj = o.getJSONObject(0);
 		
-		OSMNode nodo = new OSMNode(obj.getLong("osm_id"), obj.getDouble("lat"), obj.getDouble("lon"), obj.getString("name"));
+		OSMNode nodo = new OSMNode(obj.getLong("osm_id"), obj.getDouble("lat"), obj.getDouble("lon"), obj.getString("display_name"));
 		return nodo;
 		
 	}
