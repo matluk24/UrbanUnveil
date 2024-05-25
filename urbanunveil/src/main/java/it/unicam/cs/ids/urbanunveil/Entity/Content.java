@@ -19,6 +19,13 @@ public class Content {
 	private String descr;
 	@OneToMany
 	private List<Media> medias;  //Creazione classe Media
+	
+	public Content(String d, User u, List<Media> m) {
+		descr=d;
+		publisher=u;
+		medias=m;
+	}
+	
 	public Long getId() {
 		return Id;
 	}
@@ -43,11 +50,14 @@ public class Content {
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
-	public List<Media> getSources() {
+	public List<Media> getMedias() {
 		return medias;
 	}
-	public void setSources(List<Media> medias) {
-		this.medias = medias;
+	public void addMedias(List<Media> medias) {
+		this.medias.addAll(medias);
+	}
+	public void addMedias(Media m) {
+		medias.add(m);
 	}
 	
 	@Override
