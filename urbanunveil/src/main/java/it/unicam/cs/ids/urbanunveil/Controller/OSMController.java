@@ -14,7 +14,7 @@ import it.unicam.cs.ids.urbanunveil.Service.OSMService;
 @RestController
 public class OSMController {
 	
-	private final OSMService OSMService;
+	private OSMService OSMService;
 	
 	public OSMController(OSMService OSMService) {
 		this.OSMService = OSMService;

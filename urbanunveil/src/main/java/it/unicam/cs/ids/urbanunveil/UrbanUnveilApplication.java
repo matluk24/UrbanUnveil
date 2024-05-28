@@ -12,6 +12,13 @@ public class UrbanUnveilApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UrbanUnveilApplication.class, args);
+		
+		OSMService osmSerice = new OSMServiceImp();
+		OSMController c = new OSMController(osmSerice);
+		
+		
+		System.out.print(c.search("New York").toString()); //TEST PER CONTROLLARE FUNZIONAMENTO CONTROLLER
+		//CREAZIONE OGGETTO OSMNode, QUANDO RICHIESTO UN PUNTO PRECISO SULLA MAPPA
 	}
 
 }
