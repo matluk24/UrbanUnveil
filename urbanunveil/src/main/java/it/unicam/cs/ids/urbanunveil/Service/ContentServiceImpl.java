@@ -1,13 +1,18 @@
 package it.unicam.cs.ids.urbanunveil.Service;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Content;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Repository.ContentRepository;
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
+import it.unicam.cs.ids.urbanunveil.Utilities.NotInWaitingStateException;
 
+@Service
 public class ContentServiceImpl implements ContentService{
 	
 	ContentRepository r;
@@ -34,42 +39,56 @@ public class ContentServiceImpl implements ContentService{
 	}
 
 	@Override
-	public boolean changeContentStateToApproved(Long i) {
+	public boolean changeContentStateToApproved(Long i) throws NotInWaitingStateException {
 		Content c = this.getContentById(i);
 		if(c.getState().equals(StateEnum.WAITING)) {
 			c.setState(StateEnum.APPROVED);
 			return true;
 		}
-		throw new stateNotInWaitingStateException();
-		return false;
+		throw new NotInWaitingStateException();
 	}
 
 	@Override
-	public boolean changeContentStateToRefused(Long i) {
+	public boolean changeContentStateToRefused(Long i) throws NotInWaitingStateException {
 		Content c = this.getContentById(i);
 		if(c.getState().equals(StateEnum.WAITING)) {
 			c.setState(StateEnum.REFUSED);
 			return true;
 		}
-		throw new stateNotInWaitingStateException();
-		return false;
+		throw new NotInWaitingStateException();
 	}
 
 	@Override
-	public List<Content> getAllWaitingContent(StateEnum i) {
-		return null;
+	public List<Content> getAllWaitingContent() {
+		List<Content> waiting = new LinkedList<Content>();
+		for (Content c : r.findAll())  {
+			if (c.getState().equals(StateEnum.WAITING)) {
+				waiting.add(c);
+			}
+		}
+		return waiting;
 	}
 
 	@Override
-	public List<Content> getAllApprovedContent(StateEnum i) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Content> getAllApprovedContent() {
+		List<Content> approved = new LinkedList<Content>();
+		for (Content c : r.findAll())  {
+			if (c.getState().equals(StateEnum.APPROVED)) {
+				approved.add(c);
+			}
+		}
+		return approved;
 	}
 
 	@Override
-	public List<Content> getAllRefusedContent(StateEnum i) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Content> getAllRefusedContent() {
+		List<Content> refused = new LinkedList<Content>();
+		for (Content c : r.findAll())  {
+			if (c.getState().equals(StateEnum.REFUSED)) {
+				refused.add(c);
+			}
+		}
+		return refused;
 	}
 
 	@Override
@@ -79,6 +98,12 @@ public class ContentServiceImpl implements ContentService{
 		c.setDescr(d);
 		c.addMedias(m);
 		return r.save(c);
+	}
+	
+	@Override
+	public boolean removeContent(Long i) {
+		r.deleteById(i);
+		return r.existsById(i);
 	}
 
 }
