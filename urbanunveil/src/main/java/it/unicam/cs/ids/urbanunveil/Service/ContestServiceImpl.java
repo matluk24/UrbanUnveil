@@ -48,7 +48,10 @@ public class ContestServiceImpl implements ContestService {
 
 	@Override
 	public Contest getContestById(Long i) {
-		return r.getReferenceById(i);
+		if(r.existsById(i)) {
+			return r.getReferenceById(i);
+		}
+		return null;
 	}
 	
 	@Override
