@@ -12,6 +12,10 @@ public class Media {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String path;
+	
+	public Media(String path) {
+		this.path=path;
+	}
 	public String getPath() {
 		return path;
 	}

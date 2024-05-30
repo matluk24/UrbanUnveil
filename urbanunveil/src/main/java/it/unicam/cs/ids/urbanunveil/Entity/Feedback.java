@@ -23,6 +23,16 @@ public class Feedback {
 	private User publisher;
 	private LocalDate date;
 	private String desc;
+	private FeedbackEnum type;
+	
+	public Feedback(User u, LocalDate d, String desc, Content c, FeedbackEnum t) {
+		publisher=u;
+		date=d;
+		this.desc=desc;
+		content=c;
+		type=t;
+	}
+	
 	public Content getContent() {
 		return content;
 	}
@@ -53,5 +63,4 @@ public class Feedback {
 	public void setType(FeedbackEnum type) {
 		this.type = type;
 	}
-	private FeedbackEnum type;
 }
