@@ -8,8 +8,8 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 public interface UserService {
 
 	
-	public void updateUser(String c, String n, String s, String r);
-	public void addUser(User u);
+	public User updateUser(Long id, String c, String n, String s, Role r, String e);
+	public User addUser(String name, String surname, String email, String CF, Role role);
 	public User getUserById(Long i);
 	public List<User> getAllUsers();
 	

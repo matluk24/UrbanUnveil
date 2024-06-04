@@ -3,7 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Utilities;
 public enum RoleName {
 	MANAGER,
 	Curator,
-	Social,
+	Tourist,
 	SistemaOSM,
 	TrustedContributor,
 	Contributor,
