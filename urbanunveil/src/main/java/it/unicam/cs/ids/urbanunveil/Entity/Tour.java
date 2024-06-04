@@ -17,6 +17,29 @@ public class Tour {
 	private String name;
 	@OneToMany
 	private List<PointOfInterest> stops;
+	
+	public Tour (String n, List<PointOfInterest> s) {
+		name=n;
+		stops.addAll(s);
+	}
+
+	public void addStop(PointOfInterest s) {
+		stops.add(s);
+	}
+	public void addStop(List<PointOfInterest> s) {
+		stops.addAll(s);
+	}
+	
+	public List<PointOfInterest> removeStop(PointOfInterest p) {
+		stops.remove(p);
+		return stops;
+	}
+	
+	public List<PointOfInterest> removeStop(List<PointOfInterest>  s) {
+		stops.removeAll(s);
+		return stops;
+	}
+	
 	public String getName() {
 		return name;
 	}
