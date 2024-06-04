@@ -53,12 +53,12 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public List<Feedback> getAllUserFeedbacks(User u) {
-		return r.findAllByUser(u);
+		return r.findAllByPublisher(u);
 	}
 
 	@Override
 	public List<Feedback> getAllContentFeedbacks(Content c) {
-		return r.findByAllByContent(c);
+		return r.findAllByContent(c);
 	}
 
 	@Override

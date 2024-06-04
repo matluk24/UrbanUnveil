@@ -9,7 +9,6 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 
 public interface TourRepository extends JpaRepository<Tour, Long> {
 
-	List<Tour> findAllByUser(User u);
-	
+	List<Tour> findAllByCreator(User u);
 	Tour findByName(String n);
 }
