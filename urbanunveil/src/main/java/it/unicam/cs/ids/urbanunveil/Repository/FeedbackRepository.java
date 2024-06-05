@@ -13,7 +13,6 @@ import it.unicam.cs.ids.urbanunveil.Utilities.FeedbackEnum;
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
 	List<Feedback> findAllByDate(LocalDate d);
-	List<Feedback> findAllByType(FeedbackEnum e);
 	List<Feedback> findAllByPublisher(User u);
 	List<Feedback> findAllByContent(Content c);
 }

@@ -8,7 +8,7 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 
 public interface TourService {
 
-	public Tour addTour(String n, List<PointOfInterest> s);
+	public Tour addTour(String n, List<PointOfInterest> s, User c);
 	public boolean removeTour(Long i);
 	public Tour updateTour(Long i, String n, List<PointOfInterest> s);
 	public Tour addStop(Long i, PointOfInterest p);

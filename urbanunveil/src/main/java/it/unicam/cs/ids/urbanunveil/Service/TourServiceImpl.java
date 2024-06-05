@@ -16,13 +16,13 @@ public class TourServiceImpl implements TourService {
 	TourRepository r;
 
 	@Override
-	public Tour addTour(String n, List<PointOfInterest> s) {
+	public Tour addTour(String n, List<PointOfInterest> s, User c) {
 		Tour t;
 		if (s.isEmpty()) {	
-			t = new Tour(n, new LinkedList<PointOfInterest>());
+			t = new Tour(n, new LinkedList<PointOfInterest>(), c);
 		}
 		else {
-			t = new Tour(n, s);
+			t = new Tour(n, s, c);
 		}
 		return r.save(t);
 	}
@@ -84,7 +84,7 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	public List<Tour> getAllUserTours(User u) {
-		return r.findAllByUser(u);
+		return r.findAllByCreator(u);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.urbanunveil.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -62,18 +63,33 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<Feedback> getAllNegativeFeedbacks() {
-		return r.findAllByType(FeedbackEnum.POSITIVE);
+	public List<Feedback> getAllNegativeFeedbacks(Content c) {
+		List<Feedback> f = this.getAllContentFeedbacks(c);
+		List<Feedback> result = new ArrayList<Feedback>();
+		f.forEach((e) ->  {
+			if(e.getType().equals(FeedbackEnum.NEGATIVE)) result.add(e);
+		});
+		return result;
 	}
 
 	@Override
-	public List<Feedback> getAllPositiveFeedbacks() {
-		return r.findAllByType(FeedbackEnum.NEGATIVE);
+	public List<Feedback> getAllPositiveFeedbacks(Content c) {
+		List<Feedback> f = this.getAllContentFeedbacks(c);
+		List<Feedback> result = new ArrayList<Feedback>();
+		f.forEach((e) ->  {
+			if(e.getType().equals(FeedbackEnum.NEGATIVE)) result.add(e);
+		});
+		return result;
 	}
 
 	@Override
-	public List<Feedback> getFeedbacksByDate(LocalDate d) {
-		return r.findByAllDate(d);
+	public List<Feedback> getFeedbacksByDate(Content c, LocalDate d) {
+		List<Feedback> f = this.getAllContentFeedbacks(c);
+		List<Feedback> result = new ArrayList<Feedback>();
+		f.forEach((e) ->  {
+			if(e.getDate().equals(d)) result.add(e);
+		});
+		return result;
 	}
 
 }
