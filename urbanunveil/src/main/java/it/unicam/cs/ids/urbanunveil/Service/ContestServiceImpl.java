@@ -43,7 +43,7 @@ public class ContestServiceImpl implements ContestService {
 		c.setName(n);
 		c.setStart(s);
 		c.setEnd(e);
-		return r.save(c);
+		return r.saveAndFlush(c);
 	}
 
 	@Override
@@ -90,8 +90,11 @@ public class ContestServiceImpl implements ContestService {
 
 	@Override
 	public Contest updateContestByName(String n, LocalDate s, LocalDate e) {
-		// TODO Auto-generated method stub
-		return null;
+		Contest c = this.getContestByName(n);
+		r.delete(c);
+		c.setStart(s);
+		c.setEnd(e);
+		return r.saveAndFlush(c);
 	}
 
 }

@@ -100,7 +100,7 @@ public class ContentServiceImpl implements ContentService{
 		r.delete(c);
 		c.setDescr(d);
 		c.addMedias(m);
-		return r.save(c);
+		return r.saveAndFlush(c);
 	}
 	
 	@Override
