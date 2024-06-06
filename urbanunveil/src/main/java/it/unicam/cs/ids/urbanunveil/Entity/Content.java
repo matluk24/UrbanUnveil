@@ -27,6 +27,9 @@ public class Content {
 		state = StateEnum.WAITING;
 	}
 	
+	public Content() {
+	}
+	
 	public Long getId() {
 		return Id;
 	}

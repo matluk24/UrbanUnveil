@@ -21,8 +21,9 @@ public class UserController {
 	private UserService userService;
 	private RoleService roleService;
 	
-	public UserController(UserService u) {
+	public UserController(UserService u, RoleService r) {
 		this.userService= u;
+		this.roleService= r;
 	}
 	
 	@GetMapping("/userlist")

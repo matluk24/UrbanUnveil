@@ -3,6 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Contest;
@@ -12,6 +13,7 @@ import it.unicam.cs.ids.urbanunveil.Repository.ContestRepository;
 @Service
 public class ContestServiceImpl implements ContestService {
 	
+	@Autowired
 	private ContestRepository r;
 
 	@Override

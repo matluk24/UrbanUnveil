@@ -3,6 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +20,8 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 @RestController
 public class FeedbackController {
 
-	FeedbackService feedbackService;
+	@Autowired
+	private FeedbackService feedbackService;
 	
 	public FeedbackController(FeedbackService f) {
 		feedbackService = f;

@@ -3,6 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Service;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Content;
@@ -15,6 +16,7 @@ import it.unicam.cs.ids.urbanunveil.Utilities.NotInWaitingStateException;
 @Service
 public class ContentServiceImpl implements ContentService{
 	
+	@Autowired
 	ContentRepository r;
 
 	@Override

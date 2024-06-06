@@ -25,7 +25,11 @@ public class Tour {
 		name=n;
 		creator=c;
 		stops.addAll(s);
-	}	
+	}
+	
+	public Tour() {
+	}
+	
 	
 	public User getCreator() {
 		return creator;

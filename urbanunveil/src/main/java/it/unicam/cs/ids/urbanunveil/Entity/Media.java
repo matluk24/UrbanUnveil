@@ -13,6 +13,11 @@ public class Media {
 	private Long id;
 	private String path;
 	
+	public Media() {
+		
+	}
+	
+	
 	public Media(String path) {
 		this.path=path;
 	}

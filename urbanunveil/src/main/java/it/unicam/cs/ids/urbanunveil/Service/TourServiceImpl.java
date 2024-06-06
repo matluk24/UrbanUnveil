@@ -3,6 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Service;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.PointOfInterest;
@@ -13,6 +14,7 @@ import it.unicam.cs.ids.urbanunveil.Repository.TourRepository;
 @Service
 public class TourServiceImpl implements TourService {
 	
+	@Autowired
 	TourRepository r;
 
 	@Override

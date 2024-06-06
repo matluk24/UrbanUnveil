@@ -33,6 +33,10 @@ public class Feedback {
 		type=t;
 	}
 	
+	public Feedback() {
+	}
+	
+	
 	public Content getContent() {
 		return content;
 	}

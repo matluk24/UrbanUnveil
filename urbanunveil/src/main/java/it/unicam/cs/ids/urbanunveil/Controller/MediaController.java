@@ -2,6 +2,7 @@ package it.unicam.cs.ids.urbanunveil.Controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,8 @@ import it.unicam.cs.ids.urbanunveil.Entity.Media;
 @RestController
 public class MediaController {
 
-	MediaService mediaService;
+	@Autowired
+	private MediaService mediaService;
 	
 	public MediaController(MediaService m) {
 		mediaService=m;
