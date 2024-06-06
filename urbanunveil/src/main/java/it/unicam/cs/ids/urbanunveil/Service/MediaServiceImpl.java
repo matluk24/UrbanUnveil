@@ -2,6 +2,7 @@ package it.unicam.cs.ids.urbanunveil.Service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
@@ -10,6 +11,7 @@ import it.unicam.cs.ids.urbanunveil.Repository.MediaRepository;
 @Service
 public class MediaServiceImpl implements MediaService {
 
+	@Autowired
 	MediaRepository r;
 	
 	@Override

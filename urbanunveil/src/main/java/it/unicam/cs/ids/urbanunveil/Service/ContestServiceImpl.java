@@ -3,6 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Contest;
@@ -12,6 +13,7 @@ import it.unicam.cs.ids.urbanunveil.Repository.ContestRepository;
 @Service
 public class ContestServiceImpl implements ContestService {
 	
+	@Autowired
 	private ContestRepository r;
 
 	@Override
@@ -43,7 +45,7 @@ public class ContestServiceImpl implements ContestService {
 		c.setName(n);
 		c.setStart(s);
 		c.setEnd(e);
-		return r.save(c);
+		return r.saveAndFlush(c);
 	}
 
 	@Override
@@ -90,8 +92,11 @@ public class ContestServiceImpl implements ContestService {
 
 	@Override
 	public Contest updateContestByName(String n, LocalDate s, LocalDate e) {
-		// TODO Auto-generated method stub
-		return null;
+		Contest c = this.getContestByName(n);
+		r.delete(c);
+		c.setStart(s);
+		c.setEnd(e);
+		return r.saveAndFlush(c);
 	}
 
 }

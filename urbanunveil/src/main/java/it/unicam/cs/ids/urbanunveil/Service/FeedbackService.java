@@ -16,8 +16,8 @@ public interface FeedbackService {
 	public Feedback getFeedbackById(Long i);
 	public List<Feedback> getAllUserFeedbacks(User u);
 	public List<Feedback> getAllContentFeedbacks(Content c);
-	public List<Feedback> getAllNegativeFeedbacks();
-	public List<Feedback> getAllPositiveFeedbacks();
-	public List<Feedback> getFeedbacksByDate(LocalDate d);
+	public List<Feedback> getAllNegativeFeedbacks(Content c);
+	public List<Feedback> getAllPositiveFeedbacks(Content c);
+	public List<Feedback> getFeedbacksByDate(Content c, LocalDate d);
 	
 }

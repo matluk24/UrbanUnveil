@@ -12,18 +12,40 @@ public class User {
 	    private String name;
 	    private String surname;
 	    private String email;
-	    private String CF;
+		private String CF;
 	    @OneToOne
 	    private Role role;
 
-	    public User(long id, String name, String surname, String email, String CF, Role role) {
-	        this.userID = id;
+	    public User(String name, String surname, String email, String CF, Role role) {
 	        this.name = name;
 	        this.surname = surname;
 	        this.email = email;
 	        this.CF = CF;
 	        this.role = role;
 	    }
+	    
+	    public User() {
+	    }
+	    
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public void setSurname(String surname) {
+			this.surname = surname;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public void setCF(String cF) {
+			CF = cF;
+		}
+
+		public void setRole(Role role) {
+			this.role = role;
+		}
 
 	    public long getId() {
 	        return userID;

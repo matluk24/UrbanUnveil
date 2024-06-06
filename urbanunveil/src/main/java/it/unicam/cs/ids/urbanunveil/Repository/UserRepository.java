@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 
+@Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 	
 }

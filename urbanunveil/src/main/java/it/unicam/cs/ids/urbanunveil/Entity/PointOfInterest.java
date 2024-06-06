@@ -11,13 +11,19 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "content_id") 
 public class PointOfInterest extends Content {
 
-	public PointOfInterest(String d, User u, List<Media> m) { //Da sistemare
-		super(d, u, m);
-		// TODO Auto-generated constructor stub
-	}
 	@Embedded
 	private OSMNode location;
 	private POIEnum type;
+	
+	public PointOfInterest(String d, User u, List<Media> m, OSMNode l, POIEnum t) { //Da sistemare
+		super(d, u, m);
+		location=l;
+		type=t;
+	}
+	
+	public PointOfInterest() {
+	}
+	
 	
 	public OSMNode getLocation() {
 		return location;

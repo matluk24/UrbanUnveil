@@ -28,6 +28,10 @@ public class Contest {
 		endingDate=e;
 	}
 	
+	public Contest() {
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
