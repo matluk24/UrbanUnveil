@@ -75,7 +75,7 @@ public class ContentController {
 		}
 	}
 	
-	@GetMapping("/content/refused")
+	@GetMapping("/content/waiting")
 	public ResponseEntity<List<Content>> getWaitingContent() {
 		
 		List<Content> c = contentService.getAllWaitingContent();
