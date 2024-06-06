@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Role;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
+import it.unicam.cs.ids.urbanunveil.Service.RoleService;
 import it.unicam.cs.ids.urbanunveil.Service.UserService;
 import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 
@@ -18,6 +19,7 @@ import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 public class UserController {
 
 	private UserService userService;
+	private RoleService roleService;
 	
 	public UserController(UserService u) {
 		this.userService= u;
@@ -42,7 +44,7 @@ public class UserController {
 	
 	@PostMapping("/user/add")
 	public ResponseEntity<User> addUser(@RequestParam String name, @RequestParam  String surname, @RequestParam  String email, @RequestParam  String CF) {
-		Role r = roleService.getRoleByName(role); //Creare RoleService e Repository
+		Role r = roleService.getRoleByName("TOURIST");
 		User u = userService.addUser(name, surname, email, CF, r);
 		return new ResponseEntity<User>(u, HttpStatus.OK);
 	}

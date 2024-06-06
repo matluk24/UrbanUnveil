@@ -20,5 +20,5 @@ public interface ContentService {
 	public List<Content> getAllWaitingContent();
 	public List<Content> getAllApprovedContent();
 	public List<Content> getAllRefusedContent();
-	public Content updateContent(Long i, String d, Media m);
+	public Content updateContent(Long i, String d, List<Media> m);
 }

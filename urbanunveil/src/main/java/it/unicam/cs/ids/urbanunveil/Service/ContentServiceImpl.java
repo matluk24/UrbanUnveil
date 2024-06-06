@@ -95,11 +95,11 @@ public class ContentServiceImpl implements ContentService{
 	}
 
 	@Override
-	public Content updateContent(Long i, String d, Media m) {
+	public Content updateContent(Long i, String d, List<Media> m) {
 		Content c = this.getContentById(i);
 		r.delete(c);
 		c.setDescr(d);
-		c.addMedias(m);
+		c.setMedia(m);
 		return r.saveAndFlush(c);
 	}
 	
