@@ -19,11 +19,15 @@ import it.unicam.cs.ids.urbanunveil.Service.ContestService;
 @RestController
 public class ContestController {
 
-	@Autowired
+	
 	private ContestService contestService;
 	
+	@Autowired
 	public ContestController(ContestService c) {
 		contestService = c;
+	}
+	
+	public ContestController() {
 	}
 	
 	@GetMapping("/contests")

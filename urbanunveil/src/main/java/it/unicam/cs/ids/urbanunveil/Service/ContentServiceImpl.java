@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.urbanunveil.Service;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,17 +9,35 @@ import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Content;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
+import it.unicam.cs.ids.urbanunveil.Entity.PointOfInterest;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Repository.ContentRepository;
+import it.unicam.cs.ids.urbanunveil.Repository.POIRepository;
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 import it.unicam.cs.ids.urbanunveil.Utilities.NotInWaitingStateException;
+import it.unicam.cs.ids.urbanunveil.Utilities.POIEnum;
+import it.unicam.cs.ids.urbanunveil.Entity.OSMNode;
 
 @Service
 public class ContentServiceImpl implements ContentService{
 	
 	@Autowired
-	ContentRepository r;
-
+	private ContentRepository r;
+	@Autowired
+	private POIRepository POIrepo;
+	@Autowired
+	private OSMService s;
+	
+	public ContentServiceImpl(ContentRepository r, POIRepository POIrepo, OSMService s) {
+		this.r=r;
+		this.POIrepo=POIrepo;
+		this.s=s;
+	}
+	
+	public ContentServiceImpl() {
+		
+	}
+	
 	@Override
 	public Content getContentById(Long i) {
 		if(r.existsById(i)) {
@@ -36,6 +55,18 @@ public class ContentServiceImpl implements ContentService{
 	public Content addContent(String d, User p, List<Media> m) {
 		Content c = new Content(d, p, m);
 		return r.save(c);
+	}
+	
+	public PointOfInterest addPOI(String d, User p, List<Media> m, String location, String type) {
+		OSMNode l = null;
+		try {
+			l = s.search(location);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		POIEnum t = POIEnum.valueOf(type);
+		PointOfInterest c = new PointOfInterest(d, p, m, l, t);
+		return POIrepo.save(c);
 	}
 
 	@Override

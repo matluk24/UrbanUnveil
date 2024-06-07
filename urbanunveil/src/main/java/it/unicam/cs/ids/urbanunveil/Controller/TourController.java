@@ -19,11 +19,14 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 @RestController
 public class TourController {
 
-	@Autowired
-	private TourService tourService;
 	
+	private TourService tourService;
+	@Autowired
 	public TourController(TourService t) {
 		tourService=t;
+	}
+	
+	public TourController() {
 	}
 	
 	@GetMapping("/tours")

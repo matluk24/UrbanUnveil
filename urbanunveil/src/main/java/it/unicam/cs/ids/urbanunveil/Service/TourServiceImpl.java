@@ -10,12 +10,22 @@ import it.unicam.cs.ids.urbanunveil.Entity.PointOfInterest;
 import it.unicam.cs.ids.urbanunveil.Entity.Tour;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Repository.TourRepository;
+import it.unicam.cs.ids.urbanunveil.Repository.UserRepository;
 
 @Service
 public class TourServiceImpl implements TourService {
 	
+	private TourRepository r;
+	
 	@Autowired
-	TourRepository r;
+	public TourServiceImpl(TourRepository r) {
+		this.r=r;
+		
+	}
+	
+	public TourServiceImpl() {
+		
+	}
 
 	@Override
 	public Tour addTour(String n, List<PointOfInterest> s, User c) {

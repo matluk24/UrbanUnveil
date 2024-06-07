@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import java.util.Objects;
+
 import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 import jakarta.persistence.*;
 
@@ -12,8 +14,7 @@ public class Role {
 	private RoleName roleName;
 	private String description;
 	
-	public Role(int id, RoleName role, String description) {
-		this.id= id;
+	public Role(RoleName role, String description) {
 		this.description = description;
 		this.roleName = role;
 		
@@ -38,4 +39,21 @@ public class Role {
 				"role :"+this.roleName+
 				"description : "+this.description;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, id, roleName);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Role other = (Role) obj;
+		return Objects.equals(description, other.description) && id == other.id && roleName == other.roleName;
+	}
+	 
+}

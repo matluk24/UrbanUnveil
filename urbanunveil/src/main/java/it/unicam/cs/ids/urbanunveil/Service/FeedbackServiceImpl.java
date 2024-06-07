@@ -11,13 +11,22 @@ import it.unicam.cs.ids.urbanunveil.Entity.Content;
 import it.unicam.cs.ids.urbanunveil.Entity.Feedback;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Repository.FeedbackRepository;
+import it.unicam.cs.ids.urbanunveil.Repository.MediaRepository;
 import it.unicam.cs.ids.urbanunveil.Utilities.FeedbackEnum;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
 
+	private FeedbackRepository r;
+	
 	@Autowired
-	FeedbackRepository r;
+	public FeedbackServiceImpl (FeedbackRepository r) {
+		this.r=r;
+	}
+	
+	public FeedbackServiceImpl() {
+		
+	}
 	
 	@Override
 	public Feedback addPositiveFeedback(User u, Content c, String desc) {

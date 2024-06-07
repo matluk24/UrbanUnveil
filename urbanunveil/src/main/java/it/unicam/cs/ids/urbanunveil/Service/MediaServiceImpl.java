@@ -7,12 +7,22 @@ import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Repository.MediaRepository;
+import it.unicam.cs.ids.urbanunveil.Repository.RoleRepository;
 
 @Service
 public class MediaServiceImpl implements MediaService {
 
+	
+	private MediaRepository r;
+	
 	@Autowired
-	MediaRepository r;
+	public MediaServiceImpl (MediaRepository r) {
+		this.r=r;
+	}
+	
+	public MediaServiceImpl() {
+		
+	}
 	
 	@Override
 	public Media addMedia(String path) {
