@@ -102,7 +102,7 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public Tour getTourById(Long i) {
 		if(r.existsById(i)) {
-			return r.getReferenceById(i);
+			return r.findById(i).get();
 		}
 		return null;
 	}

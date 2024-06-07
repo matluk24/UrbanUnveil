@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService{
 	
 	public User getUserById(Long id) {
 		if(userRepository.existsById(id)) {
-			return userRepository.getReferenceById(id);
+			return userRepository.findById(id).get();
 		}
 		return null;
 	}

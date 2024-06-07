@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Repository.MediaRepository;
 import it.unicam.cs.ids.urbanunveil.Repository.RoleRepository;
+import it.unicam.cs.ids.urbanunveil.Utilities.MediaEnum;
 
 @Service
 public class MediaServiceImpl implements MediaService {
@@ -25,8 +26,8 @@ public class MediaServiceImpl implements MediaService {
 	}
 	
 	@Override
-	public Media addMedia(String path) {
-		Media m = new Media(path);
+	public Media addMedia(String path, String title, String t) {
+		Media m = new Media(path, title, MediaEnum.valueOf(t));
 		return r.save(m);
 	}
 
@@ -38,9 +39,10 @@ public class MediaServiceImpl implements MediaService {
 	}
 
 	@Override
-	public Media updateMedia(Long i, String path) {
+	public Media updateMedia(Long i, String path, String title) {
 		Media m = this.getMediaById(i);
 		m.setPath(path);
+		m.setTitle(title);
 		this.removeMedia(i);
 		return r.save(m);
 	}
@@ -53,7 +55,7 @@ public class MediaServiceImpl implements MediaService {
 	@Override
 	public Media getMediaById(Long i) {
 		if(r.existsById(i)) {
-			return r.getReferenceById(i);
+			return r.findById(i).get();
 		}
 		return null;
 	}

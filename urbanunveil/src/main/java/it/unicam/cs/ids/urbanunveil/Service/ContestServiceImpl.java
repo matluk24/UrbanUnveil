@@ -11,7 +11,7 @@ import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Repository.ContestRepository;
 
 @Service
-public class ContestServiceImpl implements ContestService {
+public class ContestServiceImpl implements ContestService { //Da Correggere quando viene aggiunta la factory
 	
 	
 	private ContestRepository r;

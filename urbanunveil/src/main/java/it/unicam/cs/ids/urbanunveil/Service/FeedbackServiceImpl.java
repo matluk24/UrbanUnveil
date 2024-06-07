@@ -58,7 +58,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public Feedback getFeedbackById(Long i) {
 		if(r.existsById(i)) {
-			return r.getReferenceById(i);
+			return r.findById(i).get();
 		}
 		return null;
 	}

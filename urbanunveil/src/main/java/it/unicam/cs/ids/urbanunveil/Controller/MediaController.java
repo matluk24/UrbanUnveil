@@ -52,14 +52,14 @@ public class MediaController {
 	}
 	
 	@PostMapping("/media/add")
-	public ResponseEntity<Media> addMedia(@RequestParam String path) {
-		Media m =mediaService.addMedia(path);
+	public ResponseEntity<Media> addMedia(@RequestParam String path, @RequestParam String title, @RequestParam String t) {
+		Media m =mediaService.addMedia(path, title, t);
 		return new ResponseEntity<Media>(m, HttpStatus.OK);
 	}
 	
 	@PostMapping("/media/update/{id}")
-	public ResponseEntity<Media> addMedia(@RequestParam Long id, @RequestParam String path) {
-		Media m =mediaService.updateMedia(id, path);
+	public ResponseEntity<Media> updateMedia(@RequestParam Long id, @RequestParam String path, @RequestParam String title) {
+		Media m =mediaService.updateMedia(id, path, title);
 		return new ResponseEntity<Media>(m, HttpStatus.OK);
 	}
 	

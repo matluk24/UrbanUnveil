@@ -41,7 +41,7 @@ public class ContentServiceImpl implements ContentService{
 	@Override
 	public Content getContentById(Long i) {
 		if(r.existsById(i)) {
-			return r.getReferenceById(i);
+			return r.findById(i).get();
 		}
 		return null;
 	}
