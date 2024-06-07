@@ -2,38 +2,65 @@ package it.unicam.cs.ids.urbanunveil.Service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Role;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
-import it.unicam.cs.ids.urbanunveil.Repository.RoleRepository;
 import it.unicam.cs.ids.urbanunveil.Repository.UserRepository;
-import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
-
-import java.util.LinkedList;
 
 @Service
 public class UserServiceImpl implements UserService{
 	
+	
 	private UserRepository userRepository;
-	private RoleRepository roleRepository;
 	
-	public void updateUser(String cf, String name, String surname, String role) {
-		//TODO upload information suddenly changed
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository) {
+		this.userRepository=userRepository;
 		
-		//userRepository.;
 	}
 	
-	public void addUser(User u) {
-		userRepository.save(u);
+	public UserServiceImpl() {
+		
 	}
+	
+	public User updateUser(Long id, String cf, String name, String surname, Role role, String email) {
+		User u = this.getUserById(id);
+		u.setCF(cf);
+		u.setName(name);
+		u.setSurname(surname);
+		u.setEmail(email);
+		return userRepository.saveAndFlush(u);
+	}
+	
+	public User addUser(String name, String surname, String email, String CF, Role role) {
+		User u = new User(name, surname, email, CF, role);
+		return userRepository.save(u);
+	}
+	
+	public User addUser(User u) {
+		return userRepository.save(u);
+	}
+	
 	
 	public User getUserById(Long id) {
-		return userRepository.getReferenceById(id);
+		if(userRepository.existsById(id)) {
+			return userRepository.getReferenceById(id);
+		}
+		return null;
 	}
 	
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
+	}
+	
+	public boolean removeUser(Long i){
+		if(userRepository.existsById(i)) {
+			userRepository.deleteById(i);
+			return true;
+		}
+		return false;
 	}
 
 }

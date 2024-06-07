@@ -9,12 +9,17 @@ public class OSMNode{
 	private double lat;
 	private double lon;
 	private String name;
+	
 	public OSMNode(Long id, double latitude, double longitude, String name) {
 		this.id = id;
 		this.lat =latitude;
 		this.lon = longitude;
 		this.name = name;
 	}
+	
+	public OSMNode() {
+	}
+	
 	public Long getId() {
 		return id;
 	}

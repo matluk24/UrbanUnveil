@@ -24,6 +24,10 @@ public class Content {
 		descr=d;
 		publisher=u;
 		medias=m;
+		state = StateEnum.WAITING;
+	}
+	
+	public Content() {
 	}
 	
 	public Long getId() {
@@ -63,6 +67,10 @@ public class Content {
 	@Override
 	public String toString() {
 		return "Content [Id=" + Id + ", state=" + state + ", descr=" + descr + "]";
+	}
+
+	public void setMedia(List<Media> m) {
+		medias = m;
 	}
 
 	
