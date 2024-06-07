@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +15,8 @@ public class User {
 	    private String surname;
 	    private String email;
 		private String CF;
-	    @OneToOne
+		@ManyToOne
+	    @JoinColumn(name = "role_id")
 	    private Role role;
 
 	    public User(String name, String surname, String email, String CF, Role role) {
@@ -82,4 +85,25 @@ public class User {
 	                ", role=" + role +
 	                '}';
 	    }
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(CF, email, name, role, surname, userID);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			User other = (User) obj;
+			return Objects.equals(CF, other.CF) && Objects.equals(email, other.email)
+					&& Objects.equals(name, other.name) && Objects.equals(role, other.role)
+					&& Objects.equals(surname, other.surname) && userID == other.userID;
+		}
+	    
+	    
 }

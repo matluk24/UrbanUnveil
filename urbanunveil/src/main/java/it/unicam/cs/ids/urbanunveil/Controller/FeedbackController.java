@@ -20,12 +20,15 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 @RestController
 public class FeedbackController {
 
-	@Autowired
-	private FeedbackService feedbackService;
 	
+	private FeedbackService feedbackService;
+	@Autowired
 	public FeedbackController(FeedbackService f) {
 		feedbackService = f;
 	}
+	public FeedbackController() {
+	}
+	
 	
 	@GetMapping("/feedbacks/{c}")
 	public ResponseEntity<List<Feedback>> getContentFeedbacks(@RequestParam Content c) {

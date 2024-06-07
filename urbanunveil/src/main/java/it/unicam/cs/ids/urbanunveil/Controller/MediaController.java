@@ -17,11 +17,14 @@ import it.unicam.cs.ids.urbanunveil.Entity.Media;
 @RestController
 public class MediaController {
 
-	@Autowired
-	private MediaService mediaService;
 	
+	private MediaService mediaService;
+	@Autowired
 	public MediaController(MediaService m) {
 		mediaService=m;
+	}
+	
+	public MediaController() {
 	}
 	
 	@GetMapping("/media")

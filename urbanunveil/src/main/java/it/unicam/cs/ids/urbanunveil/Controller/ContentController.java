@@ -21,11 +21,14 @@ import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 @RestController
 public class ContentController {
 
-	@Autowired
+	
 	private ContentService contentService;
 	
+	@Autowired
 	public ContentController(ContentService c) {
 		contentService = c;
+	}
+	public ContentController() {
 	}
 	
 	@GetMapping("/content")

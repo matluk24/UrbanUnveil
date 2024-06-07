@@ -17,6 +17,9 @@ public class RoleServiceImpl implements RoleService {
 		r=roleRepository;
 	}
 	
+	public RoleServiceImpl () {
+	}
+	
 	@Override
 	public Role getRoleByName(String name) {
 		RoleName role = RoleName.valueOf(name);

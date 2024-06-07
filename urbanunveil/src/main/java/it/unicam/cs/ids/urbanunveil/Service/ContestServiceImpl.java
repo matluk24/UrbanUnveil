@@ -13,8 +13,16 @@ import it.unicam.cs.ids.urbanunveil.Repository.ContestRepository;
 @Service
 public class ContestServiceImpl implements ContestService {
 	
-	@Autowired
+	
 	private ContestRepository r;
+	
+	@Autowired
+	public ContestServiceImpl(ContestRepository r) {
+		this.r=r;
+	}
+	
+	public ContestServiceImpl() {
+	}
 
 	@Override
 	public Contest addContest(String n, LocalDate s, LocalDate e) {
