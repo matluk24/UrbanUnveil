@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import java.util.List;
+
 import it.unicam.cs.ids.urbanunveil.Utilities.POIEnum;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -12,6 +14,12 @@ public class PointOfInterest extends Content {
 	@Embedded
 	private OSMNode location;
 	private POIEnum type;
+	
+	public PointOfInterest(String d, User u, List<Media> m, OSMNode location, POIEnum type) {
+		super(d, u, m);
+		this.location = location;
+		this.type = type;
+	}
 	
 	public OSMNode getLocation() {
 		return location;
