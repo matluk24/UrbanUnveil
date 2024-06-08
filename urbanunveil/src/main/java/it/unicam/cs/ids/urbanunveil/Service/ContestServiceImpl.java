@@ -49,7 +49,6 @@ public class ContestServiceImpl implements ContestService { //Da Correggere quan
 	@Override
 	public Contest updateContestById(Long i, String n, LocalDate s, LocalDate e) {
 		Contest c = this.getContestById(i);
-		r.delete(c);
 		c.setName(n);
 		c.setStart(s);
 		c.setEnd(e);

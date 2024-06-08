@@ -49,7 +49,6 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public Tour updateTour(Long i, String n, List<PointOfInterest> s) {
 		Tour t = this.getTourById(i);
-		r.delete(t);
 		if(!n.equals(null)) {
 			t.setName(n);
 		}

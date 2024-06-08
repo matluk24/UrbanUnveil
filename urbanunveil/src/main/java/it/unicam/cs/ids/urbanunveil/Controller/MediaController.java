@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.urbanunveil.Controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,27 @@ public class MediaController {
 		return new ResponseEntity<Media>(m, HttpStatus.OK);
 	}
 	
+	@GetMapping("/media/{title}")
+	public ResponseEntity<Media> getMedia(@RequestParam String title) {
+		Media m = mediaService.getMediaByTitle(title);
+		if(m==null) {
+			return new ResponseEntity<Media>(m, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Media>(m, HttpStatus.OK);
+	}
+	
+	@GetMapping("/media/{title}/readarticle")
+	public ResponseEntity<String> getTextFromArticle(@RequestParam Long id) {
+		String s="";
+		try {
+			s= mediaService.getTextFromFile(id);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(s, HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/media/delete/{id}")
 	public HttpStatus deleteMedia(@RequestParam Long id) {
 		if(mediaService.removeMedia(id)) {
@@ -61,6 +84,21 @@ public class MediaController {
 	public ResponseEntity<Media> updateMedia(@RequestParam Long id, @RequestParam String path, @RequestParam String title) {
 		Media m =mediaService.updateMedia(id, path, title);
 		return new ResponseEntity<Media>(m, HttpStatus.OK);
+	}
+	
+	@PostMapping("/media/{id}/writearticle")
+	public HttpStatus writeArticle(@RequestParam Long id, @RequestParam String userInput) {
+		
+		try {
+			if(mediaService.writeArticle(id, userInput)!="") {
+				return HttpStatus.OK;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return HttpStatus.NOT_IMPLEMENTED;
+		
 	}
 	
 }

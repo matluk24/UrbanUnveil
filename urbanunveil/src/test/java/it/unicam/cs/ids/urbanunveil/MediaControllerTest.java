@@ -21,9 +21,22 @@ public class MediaControllerTest {
 	@Test
 	void addAndGetMediaTest() {
 		
-		ResponseEntity<Media> m = mediaController.addMedia("/boh/testi", "Articolo di prova", "FILE");
+		ResponseEntity<Media> m = mediaController.addMedia("/boh/test", "Articolodiprova", "FILE");
 		
 		assertEquals(HttpStatus.OK, m.getStatusCode());
 		assertEquals(m.getBody(), mediaController.getMedia(m.getBody().getId()).getBody());
+	}
+	
+	@Test
+	void writeArticle() {
+		
+		
+		Media m = mediaController.getMedia("Articolodiprova").getBody();
+		
+		mediaController.writeArticle(m.getId(), "Facciamo questa prova va");
+		
+		
+		System.out.println(mediaController.getTextFromArticle(m.getId()));
+		
 	}
 }

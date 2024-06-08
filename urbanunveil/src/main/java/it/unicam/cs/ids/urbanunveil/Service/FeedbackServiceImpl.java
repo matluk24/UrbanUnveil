@@ -51,8 +51,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public Feedback updateFeedback(Long i, String desc) {
 		Feedback f = this.getFeedbackById(i);
 		f.setDesc(desc);
-		this.removeFeedback(i);
-		return r.save(f);
+		return r.saveAndFlush(f);
 	}
 
 	@Override
