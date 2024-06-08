@@ -25,7 +25,6 @@ public class OSMServiceImp implements OSMService {
 		String url =String.format("%s?q=%s&format=json", "https://nominatim.openstreetmap.org/search", query);
 		try{
 			ResponseEntity<String> responce =  r.getForEntity(url, String.class);
-			System.out.println(responce.getBody());
 			JSONArray json = new JSONArray(responce.getBody());
 			return a.JsonToOSMNode(json);
 			

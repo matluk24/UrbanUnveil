@@ -8,4 +8,5 @@ import it.unicam.cs.ids.urbanunveil.Entity.Media;
 @Repository
 public interface MediaRepository extends JpaRepository<Media, Long> {
 
+	Media findByTitle(String title);
 }

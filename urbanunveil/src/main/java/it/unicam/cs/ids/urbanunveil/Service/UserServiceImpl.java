@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService{
 		return userRepository.saveAndFlush(u);
 	}
 	
-	public User addUser(String name, String surname, String email, String CF, Role role) {
-		User u = new User(name, surname, email, CF, role);
+	public User addUser(String name, String surname, String email, String CF, String password, Role role) {
+		User u = new User(name, surname, email, CF, password, role);
 		return userRepository.save(u);
 	}
 	
@@ -46,9 +46,13 @@ public class UserServiceImpl implements UserService{
 	
 	public User getUserById(Long id) {
 		if(userRepository.existsById(id)) {
-			return userRepository.getReferenceById(id);
+			return userRepository.findById(id).get();
 		}
 		return null;
+	}
+	
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 	
 	public List<User> getAllUsers(){
@@ -61,6 +65,17 @@ public class UserServiceImpl implements UserService{
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean checkPassword(String email, String password) {
+		
+		User u = this.getUserByEmail(email);
+		
+		if(u.getPassword().equals(password)) {
+			return true;
+		}
+		return false;
+		
 	}
 
 }

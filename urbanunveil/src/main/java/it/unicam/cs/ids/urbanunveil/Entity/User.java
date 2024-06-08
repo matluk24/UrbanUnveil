@@ -15,16 +15,18 @@ public class User {
 	    private String surname;
 	    private String email;
 		private String CF;
+		private String password;
 		@ManyToOne
 	    @JoinColumn(name = "role_id")
 	    private Role role;
 
-	    public User(String name, String surname, String email, String CF, Role role) {
+	    public User(String name, String surname, String email, String CF, String password, Role role) {
 	        this.name = name;
 	        this.surname = surname;
 	        this.email = email;
 	        this.CF = CF;
 	        this.role = role;
+	        this.password=password;
 	    }
 	    
 	    public User() {
@@ -73,8 +75,16 @@ public class User {
 	    public Role getRole() {
 	        return role;
 	    }
+	    
+	    public String getPassword() {
+			return password;
+		}
 
-	    @java.lang.Override
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		@java.lang.Override
 	    public java.lang.String toString() {
 	        return "User{" +
 	                "id=" + userID +

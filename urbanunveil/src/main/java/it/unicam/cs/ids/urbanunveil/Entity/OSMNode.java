@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -38,14 +40,34 @@ public class OSMNode{
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
-	@Override
-	public String toString() {
-		return "OSMNode [id=" + id + ", lat=" + lat + ", lon=" + lon + ", nome="+ name +"]";
-	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
+	public String toString() {
+		return "OSMNode [id=" + id + ", lat=" + lat + ", lon=" + lon + ", nome="+ name +"]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, lat, lon, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OSMNode other = (OSMNode) obj;
+		return Objects.equals(id, other.id) && Double.doubleToLongBits(lat) == Double.doubleToLongBits(other.lat)
+				&& Double.doubleToLongBits(lon) == Double.doubleToLongBits(other.lon)
+				&& Objects.equals(name, other.name);
+	}
+	
 }
