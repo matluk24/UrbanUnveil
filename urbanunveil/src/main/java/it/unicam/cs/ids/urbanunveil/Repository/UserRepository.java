@@ -10,4 +10,6 @@ import it.unicam.cs.ids.urbanunveil.Entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 	
+	User findByEmail(String email);
+	
 }

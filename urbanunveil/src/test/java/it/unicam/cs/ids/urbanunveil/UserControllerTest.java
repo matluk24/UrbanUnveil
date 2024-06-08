@@ -28,7 +28,7 @@ class UserControllerTest {
     @Test
     void addAndRemoveUserTest() {
         Role r = new Role(RoleName.TOURIST, "Un normale turista autenticato");
-        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", r);
+        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
         roleRepo.save(r);
         
         assertEquals(u, controller.addUser(u).getBody());
@@ -39,8 +39,8 @@ class UserControllerTest {
     @Test
     void listOfUsersTest() {
         Role r = new Role(RoleName.TOURIST, "Un normale turista autenticato");
-        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", r);
-        User f = new User("Francesco", "Barontini", "francesco@studenti.unicam.it", "FRNC7187Y1834", r);
+        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
+        User f = new User("Francesco", "Barontini", "francesco@studenti.unicam.it", "FRNC7187Y1834", "5678", r);
         roleRepo.save(r);
         List<User> l = new ArrayList<User>();
        
@@ -56,7 +56,7 @@ class UserControllerTest {
     @Test
     void getUserTest() {
         Role r = new Role(RoleName.TOURIST, "Un normale turista autenticato");
-        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", r);
+        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
         roleRepo.save(r);
         
         controller.addUser(u);
