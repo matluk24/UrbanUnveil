@@ -11,7 +11,7 @@ import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Repository.ContestRepository;
 
 @Service
-public class ContestServiceImpl implements ContestService {
+public class ContestServiceImpl implements ContestService { //Da Correggere quando viene aggiunta la factory
 	
 	
 	private ContestRepository r;
@@ -49,7 +49,6 @@ public class ContestServiceImpl implements ContestService {
 	@Override
 	public Contest updateContestById(Long i, String n, LocalDate s, LocalDate e) {
 		Contest c = this.getContestById(i);
-		r.delete(c);
 		c.setName(n);
 		c.setStart(s);
 		c.setEnd(e);

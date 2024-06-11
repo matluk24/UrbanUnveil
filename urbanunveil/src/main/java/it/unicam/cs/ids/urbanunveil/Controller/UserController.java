@@ -48,9 +48,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/user/add")
-	public ResponseEntity<User> addUser(@RequestParam String name, @RequestParam  String surname, @RequestParam  String email, @RequestParam  String CF) {
+	public ResponseEntity<User> addUser(@RequestParam String name, @RequestParam  String surname, @RequestParam  String email, @RequestParam  String CF, @RequestParam  String password) {
 		Role r = roleService.getRoleByName("TOURIST");
-		User u = userService.addUser(name, surname, email, CF, r);
+		User u = userService.addUser(name, surname, email, CF, password, r);
 		return new ResponseEntity<User>(u, HttpStatus.OK);
 	}
 	

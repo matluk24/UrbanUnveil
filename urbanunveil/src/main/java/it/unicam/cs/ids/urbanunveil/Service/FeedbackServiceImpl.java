@@ -51,14 +51,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 	public Feedback updateFeedback(Long i, String desc) {
 		Feedback f = this.getFeedbackById(i);
 		f.setDesc(desc);
-		this.removeFeedback(i);
-		return r.save(f);
+		return r.saveAndFlush(f);
 	}
 
 	@Override
 	public Feedback getFeedbackById(Long i) {
 		if(r.existsById(i)) {
-			return r.getReferenceById(i);
+			return r.findById(i).get();
 		}
 		return null;
 	}

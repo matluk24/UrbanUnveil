@@ -3,6 +3,7 @@ package it.unicam.cs.ids.urbanunveil.Entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 
@@ -63,14 +64,33 @@ public class Content {
 	public void addMedias(Media m) {
 		medias.add(m);
 	}
+
+	public void setMedia(List<Media> m) {
+		medias = m;
+	}
 	
 	@Override
 	public String toString() {
 		return "Content [Id=" + Id + ", state=" + state + ", descr=" + descr + "]";
 	}
 
-	public void setMedia(List<Media> m) {
-		medias = m;
+	@Override
+	public int hashCode() {
+		return Objects.hash(Id, descr, medias, publisher, state);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Content other = (Content) obj;
+		return Objects.equals(Id, other.Id) && Objects.equals(descr, other.descr)
+				&& Objects.equals(medias, other.medias) && Objects.equals(publisher, other.publisher)
+				&& state == other.state;
 	}
 
 	

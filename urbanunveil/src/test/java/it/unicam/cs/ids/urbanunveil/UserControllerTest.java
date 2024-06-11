@@ -2,23 +2,16 @@ package it.unicam.cs.ids.urbanunveil;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 
-import it.unicam.cs.ids.urbanunveil.Service.UserService;
-import it.unicam.cs.ids.urbanunveil.Service.UserServiceImpl;
 import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
-import it.unicam.cs.ids.urbanunveil.Service.RoleService;
-import it.unicam.cs.ids.urbanunveil.Service.RoleServiceImpl;
 import it.unicam.cs.ids.urbanunveil.Controller.UserController;
 import it.unicam.cs.ids.urbanunveil.Entity.Role;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
@@ -35,7 +28,7 @@ class UserControllerTest {
     @Test
     void addAndRemoveUserTest() {
         Role r = new Role(RoleName.TOURIST, "Un normale turista autenticato");
-        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", r);
+        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
         roleRepo.save(r);
         
         assertEquals(u, controller.addUser(u).getBody());
@@ -46,8 +39,8 @@ class UserControllerTest {
     @Test
     void listOfUsersTest() {
         Role r = new Role(RoleName.TOURIST, "Un normale turista autenticato");
-        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", r);
-        User f = new User("Francesco", "Barontini", "francesco@studenti.unicam.it", "FRNC7187Y1834", r);
+        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
+        User f = new User("Francesco", "Barontini", "francesco@studenti.unicam.it", "FRNC7187Y1834", "5678", r);
         roleRepo.save(r);
         List<User> l = new ArrayList<User>();
        
@@ -60,13 +53,14 @@ class UserControllerTest {
         assertEquals(l, controller.getAllUsers().getBody());
     }
     
+    @Test
     void getUserTest() {
         Role r = new Role(RoleName.TOURIST, "Un normale turista autenticato");
-        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", r);
+        User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
         roleRepo.save(r);
         
         controller.addUser(u);
 
-        assertEquals(u, controller.getUser(Long.valueOf(u.getId())));
+        assertEquals(u, controller.getUser(Long.valueOf(u.getId())).getBody());
     }
 }
