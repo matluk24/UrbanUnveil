@@ -16,7 +16,13 @@ public class PointOfInterest extends Content {
 	private OSMNode location;
 	private POIEnum type;
 	
-	public PointOfInterest(String d, User u, List<Media> m, OSMNode l, POIEnum t) { //Da sistemare
+	public PointOfInterest(String d, User u, OSMNode l, POIEnum t) {
+		super(d, u);
+		location=l;
+		type=t;
+	}
+	
+	public PointOfInterest(String d, User u, List<Media> m, OSMNode l, POIEnum t) {
 		super(d, u, m);
 		location=l;
 		type=t;
@@ -52,13 +58,12 @@ public class PointOfInterest extends Content {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(PointOfInterest obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (getClass() != obj.getClass())
+		if (this.getClass() != obj.getClass())
 			return false;
 		PointOfInterest other = (PointOfInterest) obj;
 		return Objects.equals(location, other.location) && type == other.type;

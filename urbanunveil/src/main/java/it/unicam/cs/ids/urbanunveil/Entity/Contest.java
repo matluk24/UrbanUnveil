@@ -1,11 +1,12 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import it.unicam.cs.ids.urbanunveil.Utilities.POIEnum;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,14 +20,18 @@ public class Contest extends Content {
 	private String name;
 	private LocalDate startingDate;
 	private LocalDate endingDate;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<User> partecipants;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Media> photos;
 	
-	public Contest (String d, User u, List<Media> m, String n, LocalDate s, LocalDate e) {
-		super(d, u, m);
+	public Contest (String d, User u, String n, LocalDate s, LocalDate e) {
+		super(d, u);
 		name=n;
 		startingDate=s;
 		endingDate=e;
+		partecipants=new ArrayList<User>();
+		photos = new ArrayList<Media>();
 	}
 	
 	public Contest() {
@@ -56,6 +61,28 @@ public class Contest extends Content {
 	}
 	public void setPartecipants(List<User> partecipants) {
 		this.partecipants = partecipants;
+	}
+	
+	public List<Media> getPhotos() {
+		return photos;
+	}
+	
+	public void addPhoto(Media m) {
+		photos.add(m);
+	}
+	
+	public List<Media> removePhoto(Media m) {
+		photos.remove(m);
+		return photos;
+	}
+	
+	public List<Media> removePhoto(List<Media> m) {
+		photos.removeAll(m);
+		return photos;
+	}
+	
+	public void addPhoto(List<Media> m) {
+		photos.addAll(m);
 	}
 	
 	public void setPartecipants(User p) {

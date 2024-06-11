@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unicam.cs.ids.urbanunveil.Service.TourService;
+import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 import it.unicam.cs.ids.urbanunveil.Entity.PointOfInterest;
 import it.unicam.cs.ids.urbanunveil.Entity.Tour;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
@@ -39,38 +40,46 @@ public class TourController {
 	public ResponseEntity<Tour> getTour(@RequestParam Long id) {
 		Tour t = tourService.getTourById(id);
 		if(t==null) {
-			return new ResponseEntity<Tour>(t, HttpStatus.OK);
+			return new ResponseEntity<Tour>(t, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Tour>(t, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Tour>(t, HttpStatus.OK);
 	}
 	
 	@GetMapping("/tours/{name}")
 	public ResponseEntity<Tour> getTour(@RequestParam String name) {
 		Tour t = tourService.getTourByName(name);
 		if(t==null) {
-			return new ResponseEntity<Tour>(t, HttpStatus.OK);
+			return new ResponseEntity<Tour>(t, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Tour>(t, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Tour>(t, HttpStatus.OK);
 	}
 	
 	@GetMapping("/tours/{user}")
 	public ResponseEntity<List<Tour>> getTour(@RequestParam User u) {
 		List<Tour> t = tourService.getAllUserTours(u);
 		if(t==null) {
-			return new ResponseEntity<List<Tour>>(t, HttpStatus.OK);
+			return new ResponseEntity<List<Tour>>(t, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Tour>>(t, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<Tour>>(t, HttpStatus.OK);
 	}
 	
 	@PostMapping("/tours/add")
 	public ResponseEntity<Tour> addTour(@RequestParam String n, @RequestParam List<PointOfInterest> s, @RequestParam User c) {
-		Tour t = tourService.addTour(n, s, c);
+		Tour t=null;
+		if(c.getRole().getRole()!=RoleName.CONTRIBUTOR) {
+			return new ResponseEntity<Tour>(t, HttpStatus.UNAUTHORIZED);
+		}
+		t = tourService.addTour(n, s, c);
 		return new ResponseEntity<Tour>(t, HttpStatus.OK);
 	}
 	
 	@PostMapping("/tours/update/{id}") 
-	public ResponseEntity<Tour> updateTour(@RequestParam Long i, @RequestParam String n, @RequestParam List<PointOfInterest> s) {
-		Tour t = tourService.updateTour(i, n, s);
+	public ResponseEntity<Tour> updateTour(@RequestParam Long i, @RequestParam String n, @RequestParam List<PointOfInterest> s, @RequestParam User c) {
+		Tour t=null;
+		if(c.getRole().getRole()!=RoleName.CONTRIBUTOR) {
+			return new ResponseEntity<Tour>(t, HttpStatus.UNAUTHORIZED);
+		}
+		t = tourService.updateTour(i, n, s);
 		return new ResponseEntity<Tour>(t, HttpStatus.OK);
 	}
 	
