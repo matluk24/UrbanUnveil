@@ -66,8 +66,6 @@ public class PointOfInterest extends Content {
 		if (this.getClass() != obj.getClass())
 			return false;
 		PointOfInterest other = (PointOfInterest) obj;
-		System.out.println(obj);
-		System.out.println(other.getLocation().equals(location));
 		return Objects.equals(location, other.location) && type == other.type;
 	}
 	

@@ -97,9 +97,9 @@ public class Content {
 		if (getClass() != obj.getClass())
 			return false;
 		Content other = (Content) obj;
-		System.out.println(medias.equals(other.medias));
+		System.out.println();
 		return Objects.equals(Id, other.Id) && Objects.equals(descr, other.descr)
-				&& Objects.equals(medias, other.medias) && Objects.equals(publisher, other.publisher)
+				&& Objects.equals(new ArrayList<Media>(medias), new ArrayList<Media>(other.medias)) && Objects.equals(publisher, other.publisher)
 				&& state == other.state;
 	}
 

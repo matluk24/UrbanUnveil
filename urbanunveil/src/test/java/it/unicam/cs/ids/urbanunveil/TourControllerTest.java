@@ -63,15 +63,13 @@ public class TourControllerTest {
     	
     	tourController.addTourStop(t.getId(), p);
     	
-    	List<PointOfInterest> l =tourController.getTour("Giro di osimo").getBody().getStops();
+    	t=tourController.getTour("Giro di osimo").getBody();
     	
     	assertEquals(t.getStops().size(), 2);
     	
     	tourController.removeTourStop(t.getId(), p);
     	
     	t=tourController.getTour("Giro di osimo").getBody();
-    	
-    	//System.out.println(t);
     	
     	assertEquals(t.getStops().size(), 1);
     	
