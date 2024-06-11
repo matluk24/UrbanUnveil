@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.urbanunveil.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Content;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
+import it.unicam.cs.ids.urbanunveil.Entity.OSMNode;
+import it.unicam.cs.ids.urbanunveil.Entity.PointOfInterest;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Service.ContentService;
+import it.unicam.cs.ids.urbanunveil.Service.OSMService;
 import it.unicam.cs.ids.urbanunveil.Utilities.NotInWaitingStateException;
+import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 import it.unicam.cs.ids.urbanunveil.Utilities.StateEnum;
 
 @RestController
@@ -23,10 +28,12 @@ public class ContentController {
 
 	
 	private ContentService contentService;
+	private OSMService osmService;
 	
 	@Autowired
-	public ContentController(ContentService c) {
+	public ContentController(ContentService c, OSMService o) {
 		contentService = c;
+		osmService = o;
 	}
 	public ContentController() {
 	}
@@ -109,8 +116,34 @@ public class ContentController {
 		return new ResponseEntity<Content>(c, HttpStatus.OK);
 	}
 	
+	@PostMapping("/content/addPoi")
+	public ResponseEntity<PointOfInterest> addPOI(@RequestParam String d, @RequestParam User p, @RequestParam List<Media> m, @RequestParam String location, @RequestParam String type) {
+		OSMNode l= null;
+		try {
+			l =osmService.search(location);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PointOfInterest c = contentService.addPOI(d, p, m, l, type);
+		return new ResponseEntity<PointOfInterest>(c, HttpStatus.OK);
+	}
+	
+	@PostMapping("/content/addPoiwithoutmedia")
+	public ResponseEntity<PointOfInterest> addPOI(@RequestParam String d, @RequestParam User p, @RequestParam String location, @RequestParam String type) {
+		OSMNode l= null;
+		try {
+			l =osmService.search(location);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PointOfInterest c = contentService.addPOI(d, p, l, type);
+		return new ResponseEntity<PointOfInterest>(c, HttpStatus.OK);
+	}
+	
 	@PostMapping("/content/update/{id}")
-	public ResponseEntity<Content> addContent(@RequestParam Long id, @RequestParam String d, @RequestParam List<Media> m) {
+	public ResponseEntity<Content> updateContent(@RequestParam Long id, @RequestParam String d, @RequestParam List<Media> m) {
 		Content c = contentService.updateContent(id, d, m);
 		return new ResponseEntity<Content>(c, HttpStatus.OK);
 	}
@@ -126,20 +159,22 @@ public class ContentController {
 	}
 	
 	@GetMapping("/content/{id}/changestate")
-	public StateEnum changeContentState(@RequestParam Long id, @RequestParam StateEnum s) {
-		if(s==StateEnum.APPROVED) {
+	public StateEnum changeContentState(@RequestParam Long id, @RequestParam String s, @RequestParam User u) {
+		if(u.getRole().getRole().equals(RoleName.CURATOR)) {
+		if(StateEnum.valueOf(s).equals(StateEnum.APPROVED)) {
 			try {
 				contentService.changeContentStateToApproved(id);
-				return s;
+				return StateEnum.valueOf(s);
 			} catch (NotInWaitingStateException e) {
 				e.printStackTrace();
 			}
 		}
 		try {
 			contentService.changeContentStateToRefused(id);
-			return s;
+			return StateEnum.valueOf(s);
 		} catch (NotInWaitingStateException e) {
 			e.printStackTrace();
+		}
 		}
 		return null;
 	}

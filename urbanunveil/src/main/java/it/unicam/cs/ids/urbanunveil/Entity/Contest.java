@@ -22,6 +22,7 @@ public class Contest {
 	private LocalDate endingDate;
 	@OneToMany
 	private List<User> partecipants;
+	@OneToMany
 	private List<Media> photos;
 	
 	public Contest (String n, LocalDate s, LocalDate e) {

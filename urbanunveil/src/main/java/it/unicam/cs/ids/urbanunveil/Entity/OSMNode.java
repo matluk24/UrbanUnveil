@@ -62,7 +62,7 @@ public class OSMNode{
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (this.getClass() != obj.getClass())
 			return false;
 		OSMNode other = (OSMNode) obj;
 		return Objects.equals(id, other.id) && Double.doubleToLongBits(lat) == Double.doubleToLongBits(other.lat)

@@ -73,6 +73,7 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public Tour removeStop(Long i, PointOfInterest p) {
 		Tour t = this.getTourById(i);
+		t.getStops().get(1).equals(p);
 		if(t.getStops().contains(p)) {
 			t.removeStop(p);
 		}

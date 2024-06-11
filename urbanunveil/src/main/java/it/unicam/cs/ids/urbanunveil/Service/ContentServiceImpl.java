@@ -57,9 +57,17 @@ public class ContentServiceImpl implements ContentService{
 		return r.save(c);
 	}
 	
+	@Override
 	public PointOfInterest addPOI(String d, User p, List<Media> m, OSMNode l, String type) {
 		POIEnum t = POIEnum.valueOf(type);
 		PointOfInterest c = new PointOfInterest(d, p, m, l, t);
+		return POIrepo.save(c);
+	}
+	
+	@Override
+	public PointOfInterest addPOI(String d, User p, OSMNode l, String type) {
+		POIEnum t = POIEnum.valueOf(type);
+		PointOfInterest c = new PointOfInterest(d, p, l, t);
 		return POIrepo.save(c);
 	}
 
@@ -73,6 +81,7 @@ public class ContentServiceImpl implements ContentService{
 		Content c = this.getContentById(i);
 		if(c.getState().equals(StateEnum.WAITING)) {
 			c.setState(StateEnum.APPROVED);
+			r.saveAndFlush(c);
 			return true;
 		}
 		throw new NotInWaitingStateException();
@@ -83,6 +92,7 @@ public class ContentServiceImpl implements ContentService{
 		Content c = this.getContentById(i);
 		if(c.getState().equals(StateEnum.WAITING)) {
 			c.setState(StateEnum.REFUSED);
+			r.saveAndFlush(c);
 			return true;
 		}
 		throw new NotInWaitingStateException();

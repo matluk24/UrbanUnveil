@@ -2,6 +2,8 @@ package it.unicam.cs.ids.urbanunveil.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,13 +20,20 @@ public class Content {
 	private User publisher;
 	private StateEnum state;
 	private String descr;
-	@OneToMany
-	private List<Media> medias;  //Creazione classe Media
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Media> medias;
+	
+	public Content(String d, User u) {
+		descr=d;
+		publisher=u;
+		medias= new LinkedList<Media>();
+		state = StateEnum.WAITING;
+	}
 	
 	public Content(String d, User u, List<Media> m) {
 		descr=d;
 		publisher=u;
-		medias=m;
+		medias= m;
 		state = StateEnum.WAITING;
 	}
 	
@@ -88,6 +97,7 @@ public class Content {
 		if (getClass() != obj.getClass())
 			return false;
 		Content other = (Content) obj;
+		System.out.println(medias.equals(other.medias));
 		return Objects.equals(Id, other.Id) && Objects.equals(descr, other.descr)
 				&& Objects.equals(medias, other.medias) && Objects.equals(publisher, other.publisher)
 				&& state == other.state;
