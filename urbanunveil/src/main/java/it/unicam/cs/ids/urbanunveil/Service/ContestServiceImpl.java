@@ -104,6 +104,21 @@ public class ContestServiceImpl implements ContestService {
 		r.delete(c);
 		return (r.findByName(n)) == null;
 	}
+	
+	@Override
+	public Contest removePhotoFromContest(Long i, Media m) {
+		Contest c = this.getContestById(i);
+		c.removePhoto(m);
+		return r.saveAndFlush(c);
+	}
+	
+	@Override
+	public Contest removePhotoFromContest(Long i, List<Media> m) {
+		Contest c = this.getContestById(i);
+		c.removePhoto(m);
+		return r.saveAndFlush(c);
+	}
+
 
 	@Override
 	public boolean removeContest(Long i) {

@@ -51,7 +51,6 @@ public class Tour {
 	}
 	
 	public List<PointOfInterest> removeStop(PointOfInterest p) {
-		System.out.println(p);
 		stops.remove(p);
 		return stops;
 	}

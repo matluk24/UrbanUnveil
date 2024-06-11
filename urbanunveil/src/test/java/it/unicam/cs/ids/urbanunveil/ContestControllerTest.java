@@ -11,11 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 import it.unicam.cs.ids.urbanunveil.Controller.ContestController;
+import it.unicam.cs.ids.urbanunveil.Controller.MediaController;
 import it.unicam.cs.ids.urbanunveil.Controller.UserController;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Entity.Role;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
-import it.unicam.cs.ids.urbanunveil.Repository.MediaRepository;
 import it.unicam.cs.ids.urbanunveil.Repository.RoleRepository;
 import it.unicam.cs.ids.urbanunveil.Utilities.MediaEnum;
 import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
@@ -28,7 +28,7 @@ public class ContestControllerTest {
 	@Autowired
 	private RoleRepository roleRepo;
 	@Autowired
-	private MediaRepository mediaRepo;
+	private MediaController mediaController;
 	@Autowired
 	private UserController userController;
 	
@@ -39,8 +39,7 @@ public class ContestControllerTest {
     	roleRepo.save(r);
     	User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
     	userController.addUser(u);
-    	Media m = new Media("/Photos/contest/1", "Foto della selva", MediaEnum.valueOf("PHOTO"));
-    	mediaRepo.save(m);
+    	Media m = mediaController.addMedia("/Photos/contest/1", "Foto della selva", "PHOTO").getBody();
     	
     	contestController.addContest("Gara foto selva", LocalDate.of(2024, 6, 10), LocalDate.of(2024, 6, 15), u);
     	
@@ -48,6 +47,8 @@ public class ContestControllerTest {
     	
     	assertThat(contestController.getContestPhoto(Long.valueOf(1)).getBody().contains(m));
     	
+    	contestController.removeContestPhoto(Long.valueOf(1), m);
+    	assertThat(contestController.getContestPhoto(Long.valueOf(1)).getBody().isEmpty());
     	
 	}
 		

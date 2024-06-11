@@ -73,6 +73,16 @@ public class Content {
 	public void addMedias(Media m) {
 		medias.add(m);
 	}
+	
+	public List<Media> removePhoto(Media m) {
+		medias.remove(m);
+		return medias;
+	}
+	
+	public List<Media> removePhoto(List<Media> m) {
+		medias.removeAll(m);
+		return medias;
+	}
 
 	public void setMedia(List<Media> m) {
 		medias = m;

@@ -95,6 +95,18 @@ public class ContestController {
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
+	@PostMapping("/contest/{id}/removephotos")
+	public ResponseEntity<Contest> removeContestPhoto(@RequestParam Long id, @RequestParam List<Media> m) {
+		Contest c = contestService.removePhotoFromContest(id, m);
+		return new ResponseEntity<Contest>(c, HttpStatus.OK);
+	}
+	
+	@PostMapping("/contest/{id}/removephoto")
+	public ResponseEntity<Contest> removeContestPhoto(@RequestParam Long id, @RequestParam Media m) {
+		Contest c = contestService.removePhotoFromContest(id, m);
+		return new ResponseEntity<Contest>(c, HttpStatus.OK);
+	}
+	
 	@PostMapping("/contest/update/{id}")
 	public ResponseEntity<Contest> updateContest(@RequestParam Long id, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e, @RequestParam User u) {
 		Contest c =null;

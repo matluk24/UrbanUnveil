@@ -71,6 +71,16 @@ public class Contest {
 		photos.add(m);
 	}
 	
+	public List<Media> removePhoto(Media m) {
+		photos.remove(m);
+		return photos;
+	}
+	
+	public List<Media> removePhoto(List<Media> m) {
+		photos.removeAll(m);
+		return photos;
+	}
+	
 	public void addPhoto(List<Media> m) {
 		photos.addAll(m);
 	}
