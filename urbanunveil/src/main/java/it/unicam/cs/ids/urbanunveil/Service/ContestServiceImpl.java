@@ -26,7 +26,7 @@ public class ContestServiceImpl implements ContestService { //Da Correggere quan
 
 	@Override
 	public Contest addContest(String n, LocalDate s, LocalDate e) {
-		Contest c = new Contest(n, s, e);
+		Contest c = new Contest(null, null, null, n, s, e);
 		return r.save(c);
 	}
 
