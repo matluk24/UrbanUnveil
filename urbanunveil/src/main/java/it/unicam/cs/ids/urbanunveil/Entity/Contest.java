@@ -1,32 +1,35 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import it.unicam.cs.ids.urbanunveil.Utilities.POIEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "content_id") 
-public class Contest extends Content {
+public class Contest {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	private String name;
 	private LocalDate startingDate;
 	private LocalDate endingDate;
 	@OneToMany
 	private List<User> partecipants;
+	private List<Media> photos;
 	
-	public Contest (String d, User u, List<Media> m, String n, LocalDate s, LocalDate e) {
-		super(d, u, m);
+	public Contest (String n, LocalDate s, LocalDate e) {
 		name=n;
 		startingDate=s;
 		endingDate=e;
+		partecipants=new ArrayList<User>();
+		photos = new ArrayList<Media>();
 	}
 	
 	public Contest() {
@@ -56,6 +59,10 @@ public class Contest extends Content {
 	}
 	public void setPartecipants(List<User> partecipants) {
 		this.partecipants = partecipants;
+	}
+	
+	public List<Media> getPhotos() {
+		return photos;
 	}
 	
 	public void setPartecipants(User p) {

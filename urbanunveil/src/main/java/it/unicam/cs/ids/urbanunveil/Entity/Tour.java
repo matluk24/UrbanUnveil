@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.urbanunveil.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ public class Tour {
 	@OneToOne
 	private User creator;
 	@OneToMany
-	private List<PointOfInterest> stops;
+	private List<PointOfInterest> stops = new ArrayList<PointOfInterest>();
 	
 	public Tour (String n, List<PointOfInterest> s, User c) {
 		name=n;

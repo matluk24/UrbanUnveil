@@ -57,13 +57,7 @@ public class ContentServiceImpl implements ContentService{
 		return r.save(c);
 	}
 	
-	public PointOfInterest addPOI(String d, User p, List<Media> m, String location, String type) {
-		OSMNode l = null;
-		try {
-			l = s.search(location);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public PointOfInterest addPOI(String d, User p, List<Media> m, OSMNode l, String type) {
 		POIEnum t = POIEnum.valueOf(type);
 		PointOfInterest c = new PointOfInterest(d, p, m, l, t);
 		return POIrepo.save(c);
