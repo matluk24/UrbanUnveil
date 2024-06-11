@@ -11,13 +11,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-public class Contest {
+@PrimaryKeyJoinColumn(name = "content_id") 
+public class Contest extends Content {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
 	private String name;
 	private LocalDate startingDate;
 	private LocalDate endingDate;
@@ -26,7 +25,8 @@ public class Contest {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Media> photos;
 	
-	public Contest (String n, LocalDate s, LocalDate e) {
+	public Contest (String d, User u, String n, LocalDate s, LocalDate e) {
+		super(d, u);
 		name=n;
 		startingDate=s;
 		endingDate=e;
