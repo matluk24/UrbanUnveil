@@ -184,6 +184,16 @@ public class ContentController {
 		}
 	}
 	
+	@DeleteMapping("/content/remove/Poi/{id}")
+	public HttpStatus removePOI(@RequestParam Long id) {
+		if(contentService.removePOI(id)) {
+			return HttpStatus.OK;
+		}
+		else {
+			return HttpStatus.NOT_FOUND;
+		}
+	}
+	
 	@GetMapping("/content/{id}/changestate")
 	public StateEnum changeContentState(@RequestParam Long id, @RequestParam String s, @RequestParam User u) {
 		if(u.getRole().getRole().equals(RoleName.CURATOR)) {
@@ -205,14 +215,14 @@ public class ContentController {
 		return null;
 	}
 	
-	@GetMapping("/contests")
+	@GetMapping("/content/contests")
 	public ResponseEntity<List<Contest>> getContests() {
 		List<Contest> c = contentService.getAllContests();
 		
 		return new ResponseEntity<List<Contest>>(c, HttpStatus.OK);
 	}
 	
-	@GetMapping("/contests/{id}")
+	@GetMapping("/content/contests/{id}")
 	public ResponseEntity<Contest> getContest(@RequestParam Long id) {
 		Contest c = contentService.getContestById(id);
 		if(c==null) {
@@ -221,7 +231,7 @@ public class ContentController {
 		return new ResponseEntity<Contest>(c, HttpStatus.NOT_FOUND);
 	}
 	
-	@GetMapping("/contests/{name}")
+	@GetMapping("/content/contests/{name}")
 	public ResponseEntity<Contest> getContest(@RequestParam String name) {
 		Contest c = contentService.getContestByName(name);
 		if(c==null) {
@@ -230,21 +240,21 @@ public class ContentController {
 		return new ResponseEntity<Contest>(c, HttpStatus.NOT_FOUND);
 	}
 	
-	@GetMapping("/contest/{id}/photo")
+	@GetMapping("/content/contest/{id}/photo")
 	public ResponseEntity<List<Media>> getContestPhoto(@RequestParam Long id) {
 		List<Media> c = contentService.getAllContestPhotosById(id);
 		
 		return new ResponseEntity<List<Media>>(c, HttpStatus.OK);
 	}
 	
-	@GetMapping("/contest/{name}/photos")
+	@GetMapping("/content/contest/{name}/photos")
 	public ResponseEntity<List<Media>> getContestPhoto(@RequestParam String name) {
 		List<Media> c = contentService.getAllContestPhotosByName(name);
 		
 		return new ResponseEntity<List<Media>>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/contest/add")
+	@PostMapping("/content/contest/add")
 	public ResponseEntity<Contest> addContest(@RequestParam String d, @RequestParam User u, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e) {
 		Contest c =null;
 		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR) || u.getRole().getRole().equals(RoleName.TRUSTEDCONTRIBUTOR) || u.getRole().getRole().equals(RoleName.CURATOR)) {
@@ -256,31 +266,31 @@ public class ContentController {
 		}
 	}
 	
-	@PostMapping("/contest/{id}/addphoto")
+	@PostMapping("/content/contest/{id}/addphoto")
 	public ResponseEntity<Contest> addContestPhoto(@RequestParam Long id, @RequestParam Media m) {
 		Contest c = contentService.addPhotoToContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/contest/{id}/addphotos")
+	@PostMapping("/content/contest/{id}/addphotos")
 	public ResponseEntity<Contest> addContestPhoto(@RequestParam Long id, @RequestParam List<Media> m) {
 		Contest c = contentService.addPhotoToContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/contest/{id}/removephotos")
+	@PostMapping("/content/contest/{id}/removephotos")
 	public ResponseEntity<Contest> removeContestPhoto(@RequestParam Long id, @RequestParam List<Media> m) {
 		Contest c = contentService.removePhotoFromContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/contest/{id}/removephoto")
+	@PostMapping("/content/contest/{id}/removephoto")
 	public ResponseEntity<Contest> removeContestPhoto(@RequestParam Long id, @RequestParam Media m) {
 		Contest c = contentService.removePhotoFromContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/contest/update/{id}")
+	@PostMapping("/content/contest/update/{id}")
 	public ResponseEntity<Contest> updateContest(@RequestParam Long id, @RequestParam User u, @RequestParam String d, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e) {
 		Contest c =null;
 		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR) || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
@@ -292,7 +302,7 @@ public class ContentController {
 		}
 	}
 	
-	@PostMapping("/contest/update/{name}")
+	@PostMapping("/content/contest/update/{name}")
 	public ResponseEntity<Contest> updateContest(@RequestParam User u, @RequestParam String d, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e) {
 		Contest c =null;
 		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)  || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
@@ -304,7 +314,7 @@ public class ContentController {
 		}
 	}
 	
-	@DeleteMapping("/contest/remove/{id}")
+	@DeleteMapping("/content/contest/remove/{id}")
 	public HttpStatus removeContest(@RequestParam Long id, @RequestParam User u) {
 			if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)  || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
 				if(contentService.removeContest(id)) {
@@ -319,7 +329,7 @@ public class ContentController {
 			}
 	}
 	
-	@DeleteMapping("/contest/remove/{name}")
+	@DeleteMapping("/content/contest/remove/{name}")
 	public HttpStatus removeContest(@RequestParam String name, @RequestParam User u) {
 		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)  || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
 			if(contentService.removeContest(name)) {
@@ -334,12 +344,12 @@ public class ContentController {
 		}
 	}
 	
-	@GetMapping("/contest/{id}/ended")
+	@GetMapping("/content/contest/{id}/ended")
 	public ResponseEntity<Boolean> isContestEnded(@RequestParam Long id) {
 		return new ResponseEntity<Boolean>(contentService.isContestEnded(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/contest/{name}/ended")
+	@GetMapping("/content/contest/{name}/ended")
 	public ResponseEntity<Boolean> isContestEnded(@RequestParam String name) {
 		return new ResponseEntity<Boolean>(contentService.isContestEnded(name), HttpStatus.OK);
 	}
