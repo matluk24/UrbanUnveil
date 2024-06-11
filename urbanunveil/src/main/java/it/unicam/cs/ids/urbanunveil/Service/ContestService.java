@@ -13,6 +13,8 @@ public interface ContestService {
 	public boolean removeContest(Long i);
 	public boolean isContestEnded(Long i);
 	public boolean isContestEnded(String n);
+	public Contest addPhotoToContest(Long i, Media m);
+	public Contest addPhotoToContest(Long i, List<Media> m);
 	public Contest updateContestById(Long i, String n, LocalDate s, LocalDate e);
 	public Contest updateContestByName(String n, LocalDate s, LocalDate e);
 	public Contest getContestById(Long i);

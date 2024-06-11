@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,9 +21,9 @@ public class Contest {
 	private String name;
 	private LocalDate startingDate;
 	private LocalDate endingDate;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<User> partecipants;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Media> photos;
 	
 	public Contest (String n, LocalDate s, LocalDate e) {
@@ -64,6 +65,14 @@ public class Contest {
 	
 	public List<Media> getPhotos() {
 		return photos;
+	}
+	
+	public void addPhoto(Media m) {
+		photos.add(m);
+	}
+	
+	public void addPhoto(List<Media> m) {
+		photos.addAll(m);
 	}
 	
 	public void setPartecipants(User p) {

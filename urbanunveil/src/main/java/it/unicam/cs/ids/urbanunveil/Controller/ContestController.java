@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unicam.cs.ids.urbanunveil.Entity.Contest;
+import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
 import it.unicam.cs.ids.urbanunveil.Service.ContestService;
+import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 
 @RestController
 public class ContestController {
@@ -55,7 +57,7 @@ public class ContestController {
 		return new ResponseEntity<Contest>(c, HttpStatus.NOT_FOUND);
 	}
 	
-	@GetMapping("/contest/{id}/photos")
+	@GetMapping("/contest/{id}/photo")
 	public ResponseEntity<List<Media>> getContestPhoto(@RequestParam Long id) {
 		List<Media> c = contestService.getAllContestPhotosById(id);
 		
@@ -70,15 +72,39 @@ public class ContestController {
 	}
 	
 	@PostMapping("/contest/add")
-	public ResponseEntity<Contest> addContest(@RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e) {
-		Contest c = contestService.addContest(n, s, e);
+	public ResponseEntity<Contest> addContest(@RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e, @RequestParam User u) {
+		Contest c =null;
+		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)) {
+		c = contestService.addContest(n, s, e);
+		return new ResponseEntity<Contest>(c, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<Contest>(c, HttpStatus.UNAUTHORIZED);
+		}
+	}
+	
+	@PostMapping("/contest/{id}/addphoto")
+	public ResponseEntity<Contest> addContestPhoto(@RequestParam Long id, @RequestParam Media m) {
+		Contest c = contestService.addPhotoToContest(id, m);
+		return new ResponseEntity<Contest>(c, HttpStatus.OK);
+	}
+	
+	@PostMapping("/contest/{id}/addphotos")
+	public ResponseEntity<Contest> addContestPhoto(@RequestParam Long id, @RequestParam List<Media> m) {
+		Contest c = contestService.addPhotoToContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
 	@PostMapping("/contest/update/{id}")
-	public ResponseEntity<Contest> updateContest(@RequestParam Long id, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e) {
-		Contest c = contestService.updateContestById(id, n, s, e);
+	public ResponseEntity<Contest> updateContest(@RequestParam Long id, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e, @RequestParam User u) {
+		Contest c =null;
+		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)) {
+		c = contestService.updateContestById(id, n, s, e);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<Contest>(c, HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	@PostMapping("/contest/update/{name}")

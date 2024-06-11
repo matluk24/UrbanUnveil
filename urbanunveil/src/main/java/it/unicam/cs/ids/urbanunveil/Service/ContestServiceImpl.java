@@ -54,11 +54,26 @@ public class ContestServiceImpl implements ContestService {
 		c.setEnd(e);
 		return r.saveAndFlush(c);
 	}
+	
+	@Override
+	public Contest addPhotoToContest(Long i, Media m) {
+		Contest c = this.getContestById(i);
+		c.addPhoto(m);
+		return r.saveAndFlush(c);
+	}
+	
+	@Override
+	public Contest addPhotoToContest(Long i, List<Media> m) {
+		Contest c = this.getContestById(i);
+		c.addPhoto(m);
+		return r.saveAndFlush(c);
+	}
+
 
 	@Override
 	public Contest getContestById(Long i) {
 		if(r.existsById(i)) {
-			return r.getReferenceById(i);
+		return r.findById(i).get();
 		}
 		return null;
 	}
