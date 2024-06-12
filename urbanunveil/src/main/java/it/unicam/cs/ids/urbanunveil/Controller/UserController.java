@@ -15,6 +15,7 @@ import it.unicam.cs.ids.urbanunveil.Entity.Role;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Service.RoleService;
 import it.unicam.cs.ids.urbanunveil.Service.UserService;
+import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 
 @RestController
 public class UserController {
@@ -30,10 +31,24 @@ public class UserController {
 	public UserController() {
 	}
 	
+	@PostMapping("/register") 
+	public ResponseEntity<User> register(@RequestParam String name, @RequestParam  String surname, @RequestParam  String email, @RequestParam  String CF, @RequestParam  String password) {
+		Role r = new Role(RoleName.TOURIST, "GENERIC USER");
+		User u = new User(name, surname, email, CF, password,r);
+		return new ResponseEntity<User>(userService.addUser(u), HttpStatus.OK);
+	}
+	
+	@PostMapping("/login") 
+	public ResponseEntity<User> login(String email, @RequestParam  String password) {
+		if(userService.checkPassword(email, password)) {
+			return new ResponseEntity<User>(userService.getUserByEmail(email), HttpStatus.OK);
+		}
+		return new ResponseEntity<User>(userService.getUserByEmail(email), HttpStatus.UNAUTHORIZED);
+	}
+	
 	@GetMapping("/userlist")
 	public ResponseEntity<List<User>> getAllUsers() {
 		List<User> users;
-		
 		users = userService.getAllUsers();
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}

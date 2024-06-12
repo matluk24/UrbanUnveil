@@ -2,6 +2,8 @@ package it.unicam.cs.ids.urbanunveil.Entity;
 
 import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +31,7 @@ public class User {
 	        this.password=password;
 	    }
 	    
+	    @Autowired
 	    public User() {
 	    }
 	    

@@ -12,14 +12,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import it.unicam.cs.ids.urbanunveil.Controller.ContentController;
+import it.unicam.cs.ids.urbanunveil.Controller.OSMController;
 import it.unicam.cs.ids.urbanunveil.Controller.TourController;
 import it.unicam.cs.ids.urbanunveil.Controller.UserController;
 import it.unicam.cs.ids.urbanunveil.Entity.PointOfInterest;
 import it.unicam.cs.ids.urbanunveil.Entity.Role;
 import it.unicam.cs.ids.urbanunveil.Entity.Tour;
 import it.unicam.cs.ids.urbanunveil.Entity.Media;
+import it.unicam.cs.ids.urbanunveil.Entity.OSMNode;
 import it.unicam.cs.ids.urbanunveil.Entity.User;
 import it.unicam.cs.ids.urbanunveil.Repository.RoleRepository;
+import it.unicam.cs.ids.urbanunveil.Service.OSMService;
 import it.unicam.cs.ids.urbanunveil.Utilities.POIEnum;
 import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 
@@ -35,6 +38,8 @@ public class TourControllerTest {
     private TourController tourController;
     @Autowired
     private ContentController contentController;
+    @Autowired
+    private OSMController OSM;
 
     @Test
     void getTourTest() {
@@ -44,7 +49,8 @@ public class TourControllerTest {
     	User u = new User("Mattia", "Luciani", "boh@studenti.unicam.it", "MTLC7187Y1834", "1234", r);
     	userController.addUser(u);
     	
-    	PointOfInterest p = contentController.addPOI("La selva di castelfidardo", u, "Selva di castelfidardo", "PHISICAL").getBody();
+    	OSMNode node = OSM.search("Selva di castelfidardo").getBody();
+    	PointOfInterest p = contentController.addPOI("La selva di castelfidardo", u, node, "PHISICAL").getBody();
     	
     	List<PointOfInterest> l = new ArrayList<PointOfInterest>();
     	l.add(p);
@@ -59,7 +65,8 @@ public class TourControllerTest {
     	
     	Tour t = tourController.getTour("Giro di osimo").getBody();
     	
-    	PointOfInterest p = contentController.addPOI("New York", userController.getUser(Long.valueOf(1)).getBody(), "New York", "PHISICAL").getBody();
+    	OSMNode node = OSM.search("OSIMO").getBody();
+    	PointOfInterest p = contentController.addPOI("New York", userController.getUser(Long.valueOf(1)).getBody(), node, "PHISICAL").getBody();
     	
     	tourController.addTourStop(t.getId(), p);
     	

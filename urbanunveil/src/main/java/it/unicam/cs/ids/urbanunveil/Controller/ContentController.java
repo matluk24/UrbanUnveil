@@ -30,12 +30,10 @@ public class ContentController {
 
 	
 	private ContentService contentService;
-	private OSMService osmService;
 	
 	@Autowired
 	public ContentController(ContentService c, OSMService o) {
 		contentService = c;
-		osmService = o;
 	}
 	public ContentController() {
 	}
@@ -125,17 +123,10 @@ public class ContentController {
 	}
 	
 	@PostMapping("/content/addPoi")
-	public ResponseEntity<PointOfInterest> addPOI(@RequestParam String d, @RequestParam User p, @RequestParam List<Media> m, @RequestParam String location, @RequestParam String type) {
-		OSMNode l= null;
+	public ResponseEntity<PointOfInterest> addPOI(@RequestParam String d, @RequestParam User p, @RequestParam List<Media> m, @RequestParam OSMNode location, @RequestParam String type) {
 		PointOfInterest c = null;
 		if(p.getRole().getRole().equals(RoleName.CONTRIBUTOR) || p.getRole().getRole().equals(RoleName.TRUSTEDCONTRIBUTOR) || p.getRole().getRole().equals(RoleName.CURATOR)) {
-			try {
-				l =osmService.search(location);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			c=contentService.addPOI(d, p, m, l, type);
+			c=contentService.addPOI(d, p, m, location, type);
 			return new ResponseEntity<PointOfInterest>(c, HttpStatus.OK);	
 		}
 		else {
@@ -144,17 +135,10 @@ public class ContentController {
 	}
 	
 	@PostMapping("/content/addPoiwithoutmedia")
-	public ResponseEntity<PointOfInterest> addPOI(@RequestParam String d, @RequestParam User p, @RequestParam String location, @RequestParam String type) {
-		OSMNode l= null;
+	public ResponseEntity<PointOfInterest> addPOI(@RequestParam String d, @RequestParam User p, @RequestParam OSMNode location, @RequestParam String type) {
 		PointOfInterest c = null;
 		if(p.getRole().getRole().equals(RoleName.CONTRIBUTOR) || p.getRole().getRole().equals(RoleName.TRUSTEDCONTRIBUTOR) || p.getRole().getRole().equals(RoleName.CURATOR)) {
-			try {
-				l =osmService.search(location);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			c=contentService.addPOI(d, p, l, type);
+			c=contentService.addPOI(d, p, location, type);
 			return new ResponseEntity<PointOfInterest>(c, HttpStatus.OK);	
 		}
 		else {
@@ -266,26 +250,26 @@ public class ContentController {
 		}
 	}
 	
-	@PostMapping("/content/contest/{id}/addphoto")
-	public ResponseEntity<Contest> addContestPhoto(@RequestParam Long id, @RequestParam Media m) {
+	@PostMapping("/content/contest/{id}/addMedia")
+	public ResponseEntity<Contest> addContestMedia(@RequestParam Long id, @RequestParam Media m) {
 		Contest c = contentService.addPhotoToContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/content/contest/{id}/addphotos")
-	public ResponseEntity<Contest> addContestPhoto(@RequestParam Long id, @RequestParam List<Media> m) {
+	@PostMapping("/content/contest/{id}/addMedia")
+	public ResponseEntity<Contest> addContestMedia(@RequestParam Long id, @RequestParam List<Media> m) {
 		Contest c = contentService.addPhotoToContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/content/contest/{id}/removephotos")
-	public ResponseEntity<Contest> removeContestPhoto(@RequestParam Long id, @RequestParam List<Media> m) {
+	@PostMapping("/content/contest/{id}/removeMedia")
+	public ResponseEntity<Contest> removeContestMedia(@RequestParam Long id, @RequestParam List<Media> m) {
 		Contest c = contentService.removePhotoFromContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/content/contest/{id}/removephoto")
-	public ResponseEntity<Contest> removeContestPhoto(@RequestParam Long id, @RequestParam Media m) {
+	@PostMapping("/content/contest/{id}/removeMedia")
+	public ResponseEntity<Contest> removeContestMedia(@RequestParam Long id, @RequestParam Media m) {
 		Contest c = contentService.removePhotoFromContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
@@ -295,18 +279,6 @@ public class ContentController {
 		Contest c =null;
 		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR) || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
 		c = contentService.updateContestById(id, d, n, s, e);
-		return new ResponseEntity<Contest>(c, HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<Contest>(c, HttpStatus.UNAUTHORIZED);
-		}
-	}
-	
-	@PostMapping("/content/contest/update/{name}")
-	public ResponseEntity<Contest> updateContest(@RequestParam User u, @RequestParam String d, @RequestParam String n, @RequestParam LocalDate s, @RequestParam LocalDate e) {
-		Contest c =null;
-		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)  || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
-		c = contentService.updateContestByName(d, n, s, e);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 		}
 		else {
@@ -327,21 +299,6 @@ public class ContentController {
 			else {
 				return HttpStatus.UNAUTHORIZED;
 			}
-	}
-	
-	@DeleteMapping("/content/contest/remove/{name}")
-	public HttpStatus removeContest(@RequestParam String name, @RequestParam User u) {
-		if(u.getRole().getRole().equals(RoleName.CONTRIBUTOR)  || u.getRole().getRole().equals(RoleName.ANIMATORE)) {
-			if(contentService.removeContest(name)) {
-				return HttpStatus.OK;
-			}
-			else {
-				return HttpStatus.NOT_FOUND;
-			}
-		}
-		else {
-			return HttpStatus.UNAUTHORIZED;
-		}
 	}
 	
 	@GetMapping("/content/contest/{id}/ended")
