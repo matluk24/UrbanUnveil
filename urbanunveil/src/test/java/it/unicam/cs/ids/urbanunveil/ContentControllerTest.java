@@ -58,11 +58,11 @@ public class ContentControllerTest {
     	
     	contentController.addContest("Un contest sulla selva di castelfidardo", u, "Gara foto selva", LocalDate.of(2024, 6, 10), LocalDate.of(2024, 6, 15));
     	
-    	contentController.addContestPhoto(Long.valueOf(1), m);
+    	contentController.addContestMedia(Long.valueOf(1), m);
     	
     	assertThat(contentController.getContestPhoto(Long.valueOf(1)).getBody().contains(m));
     	
-    	contentController.removeContestPhoto(Long.valueOf(1), m);
+    	contentController.removeContestMedia(Long.valueOf(1), m);
     	assertThat(contentController.getContestPhoto(Long.valueOf(1)).getBody().isEmpty());
     	
 	}
