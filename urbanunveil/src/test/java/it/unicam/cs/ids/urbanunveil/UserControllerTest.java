@@ -63,4 +63,12 @@ class UserControllerTest {
 
         assertEquals(u, controller.getUser(Long.valueOf(u.getId())).getBody());
     }
+	@Test
+	void loginTest() {
+		
+		assertEquals(HttpStatus.OK, controller.register("Mattia", "Luciani", "mattia01.luciani@studenti.unicam.it", "MNUBUBF7878", "Ciao1234").getStatusCode());
+		
+		assertEquals(HttpStatus.OK, controller.login("mattia01.luciani@studenti.unicam.it", "Ciao1234").getStatusCode());
+		assertEquals(HttpStatus.UNAUTHORIZED, controller.login("mattia01.luciani@studenti.unicam.it", "boh").getStatusCode());
+	}
 }
