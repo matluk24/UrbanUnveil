@@ -256,13 +256,13 @@ public class ContentController {
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/content/contest/{id}/addMedia")
+	@PostMapping("/content/contest/{id}/addMedialist")
 	public ResponseEntity<Contest> addContestMedia(@RequestParam Long id, @RequestParam List<Media> m) {
 		Contest c = contentService.addPhotoToContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);
 	}
 	
-	@PostMapping("/content/contest/{id}/removeMedia")
+	@PostMapping("/content/contest/{id}/removeMedialist")
 	public ResponseEntity<Contest> removeContestMedia(@RequestParam Long id, @RequestParam List<Media> m) {
 		Contest c = contentService.removePhotoFromContest(id, m);
 		return new ResponseEntity<Contest>(c, HttpStatus.OK);

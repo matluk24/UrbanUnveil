@@ -32,7 +32,7 @@ class UserControllerTest {
         roleRepo.save(r);
         
         assertEquals(u, controller.addUser(u).getBody());
-        assertEquals(HttpStatus.OK, controller.removeUser(Long.valueOf(1)));
+        assertEquals(HttpStatus.OK, controller.removeUser(Long.valueOf(2)));
         
     }
     
@@ -70,5 +70,6 @@ class UserControllerTest {
 		
 		assertEquals(HttpStatus.OK, controller.login("mattia01.luciani@studenti.unicam.it", "Ciao1234").getStatusCode());
 		assertEquals(HttpStatus.UNAUTHORIZED, controller.login("mattia01.luciani@studenti.unicam.it", "boh").getStatusCode());
+		controller.removeUser(Long.valueOf(1));
 	}
 }

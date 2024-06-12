@@ -33,9 +33,9 @@ public class UserController {
 	
 	@PostMapping("/register") 
 	public ResponseEntity<User> register(@RequestParam String name, @RequestParam  String surname, @RequestParam  String email, @RequestParam  String CF, @RequestParam  String password) {
-		Role r = new Role(RoleName.TOURIST, "GENERIC USER");
-		User u = new User(name, surname, email, CF, password,r);
-		return new ResponseEntity<User>(userService.addUser(u), HttpStatus.OK);
+		Role r = roleService.getRoleByName("TOURIST");
+		User u = userService.addUser(name, surname, email, CF, password, r);
+		return new ResponseEntity<User>(u, HttpStatus.OK);
 	}
 	
 	@PostMapping("/login") 

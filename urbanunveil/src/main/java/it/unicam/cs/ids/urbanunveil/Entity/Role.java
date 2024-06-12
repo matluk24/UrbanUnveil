@@ -11,12 +11,13 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private RoleName roleName;
+	@Column(name = "role", nullable = false)
+	private RoleName role;
 	private String description;
 	
 	public Role(RoleName role, String description) {
 		this.description = description;
-		this.roleName = role;
+		this.role = role;
 		
 	}
 	
@@ -28,7 +29,7 @@ public class Role {
 		return this.id;
 		}
 	public RoleName getRole() {
-		return this.roleName;
+		return this.role;
 	}
 	public String getDesctiption() {
 		return this.description;
@@ -36,12 +37,12 @@ public class Role {
 	@Override
 	public String toString() {
 		return " id : "+this.id+
-				"role :"+this.roleName+
+				"role :"+this.role+
 				"description : "+this.description;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, roleName);
+		return Objects.hash(description, id, role);
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class Role {
 		if (getClass() != obj.getClass())
 			return false;
 		Role other = (Role) obj;
-		return Objects.equals(description, other.description) && id == other.id && roleName == other.roleName;
+		return Objects.equals(description, other.description) && id == other.id && role == other.role;
 	}
 	 
 }

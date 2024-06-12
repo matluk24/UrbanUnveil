@@ -9,6 +9,6 @@ import it.unicam.cs.ids.urbanunveil.Utilities.RoleName;
 @Repository
 public interface RoleRepository extends JpaRepository<Role,Long>{
 	
-	Role findRoleByroleName(RoleName name);
+	Role findRoleByRole(RoleName name);
 	
 }
